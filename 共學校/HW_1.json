@@ -183,14 +183,14 @@
       "parameters": {
         "content": "## 回家作業（依照難度順序排列）\n\n0. 上傳HW_1.json檔，看到作業單。（就是這裡）\n1. 運行程式，下載『Convert to File 1』生出的檔案，打開檔案截圖發到群內。\n2. 設置OpenRouter的Credential，運行程式，下載『Convert to File 2』生出的檔案，打開檔案截圖發到群內。\n3. 用方法二抓取 https://lu.ma/taipei 網頁上的活動標題、活動鏈結、活動圖片網址，下載csv檔截圖發到群內。\n4. 用方法一抓取 https://lu.ma/taipei 網頁上的活動標題、活動鏈結、活動圖片網址，下載csv檔截圖發到群內。",
         "height": 280,
-        "width": 420,
+        "width": 440,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1940,
-        0
+        1920,
+        180
       ],
       "id": "e2d64209-6ce9-4227-b9fc-2d5fbd6406b1",
       "name": "Sticky Note2"
@@ -291,16 +291,33 @@
       "parameters": {
         "content": "## 各種資源\n- [模板，可以下載json檔上傳使用，或是透過『https://{自己的n8n域名}/templates/{模板編號}』使用](https://n8n.io/workflows/)\n- [AI助手](https://chatgpt.com/g/g-SVatmGSdQ-n8n-assistant-by-nskha)",
         "height": 140,
-        "width": 440
+        "width": 440,
+        "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1940,
-        320
+        1920,
+        480
       ],
       "id": "2998d905-c736-4b49-a9a0-bf1513518340",
       "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## 2025/05/14 [【 共學校unylearn 一起學】告別重複！打造你的第一個 n8n 自動化工作流 | 部署 & 體驗](https://lu.ma/9ejpx5gi)\n\n### 學習目標（體驗部分）\n- 學習建立工作流\n- 學習如何設置參數\n- 學習如何使用他人的工作流",
+        "height": 240,
+        "width": 440,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        -80
+      ],
+      "id": "98205a72-5cc5-4fba-a783-9f8918279bc9",
+      "name": "Sticky Note8"
     }
   ],
   "pinData": {},
@@ -401,9 +418,12 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1
   },
-  "versionId": "ac02af12-63bf-41d1-bdf0-3f1f618315ba",
+  "versionId": "b121be4c-1148-4048-82a6-c11bdb3866d2",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "26927a3d5a21d95e410e7b83cd62488f3871ccee725a95cb819f52d6d27fae78"
