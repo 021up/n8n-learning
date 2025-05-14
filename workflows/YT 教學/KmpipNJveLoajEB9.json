@@ -1,0 +1,614 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read Homepage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "資料提取": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Set Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "基本資料": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Read Bookpage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Homepage": {
+      "main": [
+        [
+          {
+            "node": "資料提取",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Bookpage": {
+      "main": [
+        [
+          {
+            "node": "Book 資料提取",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Book 資料提取": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Image": {
+      "main": [
+        [
+          {
+            "node": "基本資料",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-21T03:33:05.430Z",
+  "id": "KmpipNJveLoajEB9",
+  "meta": null,
+  "name": "爬網站",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d983c9c3-8133-4212-bdaa-07711792bfc4",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Help me extract Books information from the below context:\n\n{{ $json.data.content }}\n\nreturn four things to me:\n\n1. book_title\n2. book_link\n3. book_price\n4. book_cover_url"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        420,
+        0
+      ],
+      "id": "174b5ac3-96da-4ef1-986e-013d7420bc30",
+      "name": "資料提取",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message.content.books",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        780,
+        0
+      ],
+      "id": "aef97c5c-5921-48e3-a772-b64bb447fc35",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appHtdG3VAzwAzgOt",
+          "mode": "list",
+          "cachedResultName": "Youtube Test Base",
+          "cachedResultUrl": "https://airtable.com/appHtdG3VAzwAzgOt"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblnCvoXctgGAwuXv",
+          "mode": "list",
+          "cachedResultName": "爬蟲學教",
+          "cachedResultUrl": "https://airtable.com/appHtdG3VAzwAzgOt/tblnCvoXctgGAwuXv"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Book Title": "={{ $('Split Out').item.json.book_title }}",
+            "Book Url": "={{ $('Split Out').item.json.book_link }}",
+            "Price": "={{ $('Split Out').item.json.book_price }}",
+            "Cover": "={{ $json.image }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Book Title",
+              "displayName": "Book Title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Cover",
+              "displayName": "Cover",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Book Url",
+              "displayName": "Book Url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UPC",
+              "displayName": "UPC",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Todo",
+                  "value": "Todo"
+                },
+                {
+                  "name": "In progress",
+                  "value": "In progress"
+                },
+                {
+                  "name": "Done",
+                  "value": "Done"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1180,
+        0
+      ],
+      "id": "8d136c23-c232-4c88-ae86-dd62ab969e84",
+      "name": "基本資料"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        0,
+        240
+      ],
+      "id": "76b05e5c-2e60-4ebb-8903-5afbcf154036",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://books.toscrape.com/index.html",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        200,
+        0
+      ],
+      "id": "565096ff-f99f-47b9-beb6-b098db3b4a47",
+      "name": "Read Homepage"
+    },
+    {
+      "parameters": {
+        "url": "=https://r.jina.ai/{{ $json.fields['Book Url'] }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        380,
+        240
+      ],
+      "id": "7f3a3c27-1845-47a8-abf8-8e4b7f761daf",
+      "name": "Read Bookpage"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Help me extract Books information from the below context:\n\n{{ $json.data.content }}\n\nreturn four things to me:\n\n1. book_des\n2. book_cat\n3. book_upc\n4. book_status"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        580,
+        240
+      ],
+      "id": "0e6d57c5-f943-4f45-93d7-78677284b920",
+      "name": "Book 資料提取",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appHtdG3VAzwAzgOt",
+          "mode": "list",
+          "cachedResultName": "Youtube Test Base",
+          "cachedResultUrl": "https://airtable.com/appHtdG3VAzwAzgOt"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblnCvoXctgGAwuXv",
+          "mode": "list",
+          "cachedResultName": "爬蟲學教",
+          "cachedResultUrl": "https://airtable.com/appHtdG3VAzwAzgOt/tblnCvoXctgGAwuXv"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Loop Over Items').item.json.id }}",
+            "Description": "={{ $json.message.content.book_des }}",
+            "Category": "={{ $json.message.content.book_cat }}",
+            "UPC": "={{ $json.message.content.book_upc }}",
+            "Status": "={{ $json.message.content.book_status }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Book Title",
+              "displayName": "Book Title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Cover",
+              "displayName": "Cover",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Book Url",
+              "displayName": "Book Url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UPC",
+              "displayName": "UPC",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        960,
+        240
+      ],
+      "id": "18413203-5de3-48af-affd-c37d33716607",
+      "name": "Airtable"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0cc5fae3-295b-4d15-9f1a-4fc007235813",
+              "name": "image",
+              "value": "={{ [{ \"url\" : $json.book_cover_url }] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        980,
+        0
+      ],
+      "id": "cd4fe710-ebd5-4d28-bb80-e09f3432d6a8",
+      "name": "Set Image"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1180,
+        240
+      ],
+      "id": "a91baf90-da6d-4080-b84a-e4cd3de56426",
+      "name": "Wait",
+      "webhookId": "c8fb9901-860f-4aea-9248-ab26ad04b856"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-21T03:32:36.426Z",
+      "updatedAt": "2025-04-21T03:32:36.426Z",
+      "id": "4ozpFg4XUr4X7Ess",
+      "name": "YT 教學"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-21T07:58:21.094Z",
+  "versionId": "c8d21614-75f9-413a-ab9a-7d7e2fb86239"
+}
