@@ -8,6 +8,11 @@
             "node": "n8n1",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "n8n",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -179,7 +184,13 @@
     },
     "Schedule Trigger": {
       "main": [
-        []
+        [
+          {
+            "node": "n8n1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "File is different": {
@@ -922,6 +933,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-14T06:33:05.868Z",
-  "versionId": "9f0a350b-7e65-4cfd-814d-0ebb96301e25"
+  "updatedAt": "2025-05-14T06:33:37.959Z",
+  "versionId": "b8c56d19-9331-4417-810f-e1ab4e0acd9c"
 }
