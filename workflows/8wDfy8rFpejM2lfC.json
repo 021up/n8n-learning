@@ -1,0 +1,326 @@
+{
+  "active": false,
+  "connections": {
+    "每週觸發": {
+      "main": [
+        [
+          {
+            "node": "網站1 HTTP請求",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "網站2 HTTP請求",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "網站3 RSS讀取",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "網站1 HTTP請求": {
+      "main": [
+        [
+          {
+            "node": "網站1 HTML解析",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "網站2 HTTP請求": {
+      "main": [
+        [
+          {
+            "node": "網站2 HTML解析",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "網站1 HTML解析": {
+      "main": [
+        [
+          {
+            "node": "合併資料",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "合併資料": {
+      "main": [
+        [
+          {
+            "node": "過濾近期活動",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "過濾近期活動": {
+      "main": [
+        [
+          {
+            "node": "標準化資料",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "標準化資料": {
+      "main": [
+        [
+          {
+            "node": "處理和排序",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "處理和排序": {
+      "main": [
+        [
+          {
+            "node": "生成Markdown報告",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "生成Markdown報告": {
+      "main": [
+        [
+          {
+            "node": "發送電子郵件",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-13T18:25:48.298Z",
+  "id": "8wDfy8rFpejM2lfC",
+  "meta": null,
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks"
+            }
+          ]
+        }
+      },
+      "name": "每週觸發",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        100
+      ],
+      "id": "ec91e98a-ad38-43db-9205-309208caa4ae"
+    },
+    {
+      "parameters": {
+        "url": "https://example1.com/events",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "name": "網站1 HTTP請求",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9276c207-c12d-481e-8760-86f1c94b7218"
+    },
+    {
+      "parameters": {
+        "url": "https://example2.com/events",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "name": "網站2 HTTP請求",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        0,
+        200
+      ],
+      "id": "2d7dd56f-ce8e-416c-9d4f-5642d92c2e96"
+    },
+    {
+      "parameters": {},
+      "name": "網站1 HTML解析",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        200,
+        0
+      ],
+      "id": "577785b2-20bc-43fc-9687-378b51c26c2a"
+    },
+    {
+      "parameters": {},
+      "name": "網站2 HTML解析",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        200,
+        200
+      ],
+      "id": "f0613cc9-6263-411c-9b45-9eb4293bed38"
+    },
+    {
+      "parameters": {
+        "url": "https://example3.com/feed.xml",
+        "options": {}
+      },
+      "name": "網站3 RSS讀取",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        0,
+        400
+      ],
+      "id": "64e382c8-5269-4bb0-ba3e-21c552abb8ba"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "name": "合併資料",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 1,
+      "position": [
+        400,
+        100
+      ],
+      "id": "13e949be-6508-4ec7-a5ab-f7e86b49482a"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.date }}",
+              "operation": "isAfter",
+              "value2": "={{ $today.minus({ days: 7 }).toISO() }}"
+            }
+          ]
+        }
+      },
+      "name": "過濾近期活動",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        600,
+        100
+      ],
+      "id": "1f8695f1-a9f9-4daa-930f-9a1e2402b8f9"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "標準化標題",
+              "value": "={{ $json.title || $json.name || $json.subject }}"
+            },
+            {
+              "name": "標準化日期",
+              "value": "={{ $json.date || $json.eventDate || $json.pubDate }}"
+            },
+            {
+              "name": "標準化描述",
+              "value": "={{ $json.description || $json.content || $json.summary }}"
+            },
+            {
+              "name": "來源",
+              "value": "={{ $json.source || $node[\"網站1 HTTP請求\"].json.url || $node[\"網站2 HTTP請求\"].json.url || \"RSS Feed\" }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "標準化資料",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        800,
+        100
+      ],
+      "id": "3d3be08a-3839-4b37-9616-daa98f242da6"
+    },
+    {
+      "parameters": {
+        "functionCode": "// 按日期排序活動\nconst sortedItems = items.sort((a, b) => {\n  const dateA = new Date(a.json.標準化日期);\n  const dateB = new Date(b.json.標準化日期);\n  return dateA - dateB;\n});\n\n// 生成週報標題和日期範圍\nconst today = new Date();\nconst lastWeek = new Date(today);\nlastWeek.setDate(today.getDate() - 7);\n\nconst formatDate = (date) => {\n  return date.toISOString().split('T')[0];\n};\n\nconst reportTitle = `活動週報 (${formatDate(lastWeek)} 至 ${formatDate(today)})`;\n\n// 為每個項目添加週報信息\nreturn sortedItems.map(item => {\n  item.json.reportTitle = reportTitle;\n  item.json.reportDateRange = `${formatDate(lastWeek)} 至 ${formatDate(today)}`;\n  return item;\n});"
+      },
+      "name": "處理和排序",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        100
+      ],
+      "id": "5a8e1121-303a-411b-a7da-3bcdfc337b2f"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "name": "生成Markdown報告",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        100
+      ],
+      "id": "21f05e35-fff1-4ea5-ab5a-8a2e09eb4723"
+    },
+    {
+      "parameters": {
+        "fromEmail": "reports@example.com",
+        "toEmail": "your-email@example.com",
+        "subject": "={{ $node[\"處理和排序\"].first().json.reportTitle }}",
+        "text": "={{ $node[\"生成Markdown報告\"].json.markdown }}",
+        "options": {}
+      },
+      "name": "發送電子郵件",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        100
+      ],
+      "id": "95069442-c78f-428b-83d2-60da530a6e99"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-13T18:25:48.298Z",
+  "versionId": "a9ec11dc-4ac4-48eb-8f43-385f4c0961fd"
+}
