@@ -1,0 +1,645 @@
+{
+  "active": false,
+  "connections": {
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Notion1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Jina Fetch": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Jina Fetch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Jina Fetch2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Jina Fetch2": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion1": {
+      "main": [
+        []
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor1": {
+      "main": [
+        []
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "HTML2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML2": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-04-21T07:44:33.542Z",
+  "id": "cVjZkWatl2dxeddT",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "爬網站2",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "77026260-3487-4942-b18c-41b82f1500e6",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -100,
+        -460
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.results",
+        "options": {}
+      },
+      "id": "7ab1c679-752e-4aff-9766-862be637aa9b",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        1360,
+        80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.data }}",
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"results\": {\n      \"type\": \"array\",\n      \"items\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"title\": {\n              \"type\": \"string\"\n            },\n            \"image_url\": {\n              \"type\": \"string\"\n            },\n            \"event_url\": {\n              \"type\": \"string\"\n            }           \n           }\n      }\n  }\n}",
+        "options": {
+          "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value.\nAlways output the data in a json array called results.  Each event should have a title, event_link and image_url"
+        }
+      },
+      "id": "562c6619-05c5-4cb9-97d7-48611f40d8db",
+      "name": "Information Extractor",
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "position": [
+        980,
+        80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://lu.ma/taipei",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Engine",
+              "value": "direct"
+            },
+            {
+              "name": "X-Return-Format",
+              "value": "markdown"
+            },
+            {
+              "name": "X-With-Links-Summary",
+              "value": "all"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "50b75b79-a406-4c79-95a1-4b0d8c86b0c7",
+      "name": "Jina Fetch",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        740,
+        80
+      ],
+      "typeVersion": 4.1
+    },
+    {
+      "parameters": {
+        "content": "## Start here: Step-by Step Youtube Tutorial :star:\n\n[![AI Powered Web Scraping : the EASY way with n8n and Jina.ai (no-code!)](https://img.youtube.com/vi/f3AJYXHirr8/sddefault.jpg)](https://youtu.be/f3AJYXHirr8)\n\n[Google Sheet Example](https://docs.google.com/spreadsheets/d/1VDbfi2PpeheD2ZlO6feX3RdMeSsm0XukQlNVW8uVcuo/edit?usp=sharing)\n\n\n",
+        "height": 570,
+        "width": 587,
+        "color": 5
+      },
+      "id": "5a0fe1e5-d99d-4997-bdd3-a25de94c2d01",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1080,
+        200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-chat-v3-0324:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        300
+      ],
+      "id": "ee5ad144-cea2-4338-b9ed-e679e3e2e752",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "cDZzak9LVmWuB9c8",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "1dc7d6d8-a392-80d4-b925-fa0390811e7f",
+          "mode": "list",
+          "cachedResultName": "books",
+          "cachedResultUrl": "https://www.notion.so/1dc7d6d8a39280d4b925fa0390811e7f"
+        },
+        "title": "books",
+        "simple": false,
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Name|title",
+              "title": "={{ $json.title }}"
+            },
+            {
+              "key": "Event URL|url",
+              "urlValue": "={{ $json.event_link }}"
+            },
+            {
+              "key": "Img URL|url",
+              "urlValue": "={{ $json.image_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        180
+      ],
+      "id": "4c62ec0e-d5a9-43b6-9fa4-3505b8b5e64d",
+      "name": "Notion1",
+      "credentials": {
+        "notionApi": {
+          "id": "HQh0SKgkF6QlvxQC",
+          "name": "021up Notion"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://lu.ma/ho-chi-minh-city",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Engine",
+              "value": "direct"
+            },
+            {
+              "name": "X-Return-Format",
+              "value": "markdown"
+            },
+            {
+              "name": "X-With-Links-Summary",
+              "value": "all"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "d8bcbddb-f673-46f8-8793-1bee64936ea1",
+      "name": "Jina Fetch2",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        740,
+        -80
+      ],
+      "typeVersion": 4.1
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.data }}",
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"results\": {\n      \"type\": \"array\",\n      \"items\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"title\": {\n              \"type\": \"string\"\n            },\n            \"image_url\": {\n              \"type\": \"string\"\n            }         \n           }\n      }\n  }\n}",
+        "options": {
+          "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value.\nAlways output the data in a json array called results.  Each event should have a title, address and image_url"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1,
+      "position": [
+        1980,
+        360
+      ],
+      "id": "0304b451-47df-44d3-abfe-fb0ee666f4fd",
+      "name": "Information Extractor1"
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-chat-v3-0324:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        580
+      ],
+      "id": "1b49390c-d1de-438a-bb51-b0e5e9ebddcc",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "cDZzak9LVmWuB9c8",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://r.jina.ai/https://lu.ma/fn7i9p1k",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Engine",
+              "value": "direct"
+            },
+            {
+              "name": "X-Return-Format",
+              "value": "markdown"
+            },
+            {
+              "name": "X-With-Links-Summary",
+              "value": "all"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2880,
+        560
+      ],
+      "id": "21391162-4249-4efa-97b1-8bd6c8c5cca3",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2140,
+        100
+      ],
+      "id": "84883a8e-24bd-4bb1-8030-14e984460776",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "https://lu.ma/taipei",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        -300
+      ],
+      "id": "bb3d3f57-022f-4730-8ba6-d78cb16c0d61",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "event",
+              "cssSelector": "div.timeline > div > div > div > div > a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        940,
+        -300
+      ],
+      "id": "2ffe01f8-515e-419c-9a2f-f38310470e36",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://www.accupass.com/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "p",
+              "value": "free"
+            },
+            {
+              "name": "s",
+              "value": "relevance"
+            },
+            {
+              "name": "t",
+              "value": "next-week"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "event-stream"
+            },
+            {
+              "name": "X-Engine",
+              "value": "browser"
+            },
+            {
+              "name": "X-Return-Format",
+              "value": "html"
+            },
+            {
+              "name": "X-Target-Selector",
+              "value": "main > section > div > div > div > div > div > div > a"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        -500
+      ],
+      "id": "41902e9a-af36-4ed9-9b85-aaf22894672a",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "event",
+              "cssSelector": "a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        -500
+      ],
+      "id": "243c3b7e-b7d3-4d61-b4b6-492da64db6f4",
+      "name": "HTML1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://corgi-learning-egret.ngrok-free.app/scrape_url",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "https://www.accupass.com/search?s=relevance&t=tomorrow"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        -700
+      ],
+      "id": "7a97cc23-2d56-462f-a609-015785b77e15",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "data[0].html",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "url",
+              "cssSelector": "div.Grid-a588ae81-item > div > div > div > div > a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            },
+            {
+              "key": "title",
+              "cssSelector": "div.Grid-a588ae81-item > div > div > div > div > div > div > a > p",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        840,
+        -780
+      ],
+      "id": "b73770f3-bc3b-45fb-8cc8-303629fab5cf",
+      "name": "HTML2"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-10T02:55:52.247Z",
+  "versionId": "c3a8fff2-1708-4a76-a2a3-e51da6acc8c4"
+}
