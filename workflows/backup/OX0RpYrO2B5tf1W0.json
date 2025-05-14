@@ -273,7 +273,7 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        920,
+        -200,
         40
       ],
       "id": "9cdc177e-6314-4604-b048-9ed6cdecf927",
@@ -303,8 +303,7 @@
           "id": "W41PrqEfM4WamItM",
           "name": "n8n account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -583,15 +582,15 @@
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "position": [
-        900,
-        220
+        920,
+        200
       ],
       "typeVersion": 1.2,
       "disabled": true
     },
     {
       "parameters": {
-        "content": "## Backup to GitHub \nThis workflow will backup all instance workflows to GitHub.\n\nThe files are saved `ID.json` for the filename.\n\n### Setup\nOpen `Globals` node and update the values below 👇\n\n- **repo.owner:** your Github username\n- **repo.name:** the name of your repository\n- **repo.path:** the folder to use within the repository. If it doesn't exist it will be created.\n\n\nIf your username was `john-doe` and your repository was called `n8n-backups` and you wanted the workflows to go into a `workflows` folder you would set:\n\n- repo.owner - john-doe\n- repo.name - n8n-backups\n- repo.path - workflows/\n\n\nThe workflow calls itself using a subworkflow, to help reduce memory usage.",
+        "content": "## Backup to GitHub \n\nFrom [this video](https://www.youtube.com/watch?v=NJMMBc9FM_w)\n\nThis workflow will backup all instance workflows to GitHub.\n\nThe files are saved `ID.json` for the filename.\n\n### Setup\nOpen `Globals` node and update the values below 👇\n\n- **repo.owner:** your Github username\n- **repo.name:** the name of your repository\n- **repo.path:** the folder to use within the repository. If it doesn't exist it will be created.\n\n\nIf your username was `john-doe` and your repository was called `n8n-backups` and you wanted the workflows to go into a `workflows` folder you would set:\n\n- repo.owner - john-doe\n- repo.name - n8n-backups\n- repo.path - workflows/\n\n\nThe workflow calls itself using a subworkflow, to help reduce memory usage.",
         "height": 600.88409546716,
         "width": 371.1995072042308,
         "color": 4
@@ -874,8 +873,8 @@
           "cachedResultUrl": "https://github.com/021up/n8n-learning"
         },
         "filePath": "共學校/HW_1.json",
-        "fileContent": "={{ $json }}",
-        "commitMessage": "更新檔案"
+        "fileContent": "={{$json.toJsonString()}}",
+        "commitMessage": "=最後更新於 {{ $json.updatedAt }}"
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
@@ -891,8 +890,22 @@
           "id": "0X05wI5bHtDL4JNm",
           "name": "GitHub account-021up"
         }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 試驗\n",
+        "height": 780,
+        "width": 680
       },
-      "disabled": true
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        -200
+      ],
+      "id": "c89983d9-319f-47ba-9e97-3018d7f7dcfb",
+      "name": "Sticky Note4"
     }
   ],
   "pinData": {},
@@ -909,6 +922,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-14T05:16:58.791Z",
-  "versionId": "f5409170-e345-490e-b87b-c4d840b742f9"
+  "updatedAt": "2025-05-14T06:33:05.868Z",
+  "versionId": "9f0a350b-7e65-4cfd-814d-0ebb96301e25"
 }
