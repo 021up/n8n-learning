@@ -174,7 +174,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.6,
       "position": [
-        500,
+        480,
         440
       ],
       "id": "5ce2a4e5-239e-4e31-8c81-01d5bbec89a9",
@@ -282,7 +282,7 @@
     },
     {
       "parameters": {
-        "content": "## 回家作業（依照難度順序排列）\n\n0. 上傳HW_1.json檔，看到作業單。（就是這裡）\n1. 運行程式，下載『Convert to File 1』生出的檔案，打開檔案截圖發到群內。\n2. 設置OpenRouter的Credential，運行程式，下載『Convert to File 2』生出的檔案，打開檔案截圖發到群內。\n3. 用方法二抓取 https://lu.ma/taipei 網頁上的活動標題、活動鏈結、活動圖片網址，下載csv檔截圖發到群內。\n4. 用方法一抓取 https://lu.ma/taipei 網頁上的活動標題、活動鏈結、活動圖片網址，下載csv檔截圖發到群內。",
+        "content": "## 回家作業（依照難度順序排列）\n\n0. 上傳HW_1.json檔，看到作業單，就是這裡，截圖傳到問卷表單。\n1. 運行程式，下載『Convert to File 1』生出的檔案。\n2. 設置OpenRouter的Credential，運行程式，下載『Convert to File 2』生出的檔案。\n3. 用方法二抓取 https://lu.ma/taipei 網頁上的活動標題、活動鏈結、活動圖片網址，下載csv檔。\n4. 用方法一抓取 https://lu.ma/taipei 網頁上的活動標題、活動鏈結、活動圖片網址，下載csv。",
         "height": 280,
         "width": 440,
         "color": 3
@@ -291,7 +291,7 @@
       "typeVersion": 1,
       "position": [
         1920,
-        140
+        460
       ],
       "id": "e2d64209-6ce9-4227-b9fc-2d5fbd6406b1",
       "name": "Sticky Note2"
@@ -343,15 +343,15 @@
     },
     {
       "parameters": {
-        "content": "## 資料輸出（下載）\n",
+        "content": "## 資料輸出（下載）\n可以想像，還可以接上很多流程。",
         "height": 800,
-        "width": 340,
+        "width": 360,
         "color": 5
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1560,
+        1540,
         -120
       ],
       "id": "2e1cbc7e-b13d-45f9-a00e-53473b32e97e",
@@ -376,14 +376,14 @@
     {
       "parameters": {
         "content": "## 方法一：不使用第三方工具\n",
-        "height": 340,
+        "height": 380,
         "width": 1120
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         380,
-        -20
+        -60
       ],
       "id": "a9e3ec20-c991-40e1-a265-9607d635f733",
       "name": "Sticky Note6"
@@ -399,14 +399,14 @@
       "typeVersion": 1,
       "position": [
         1920,
-        440
+        760
       ],
       "id": "2998d905-c736-4b49-a9a0-bf1513518340",
       "name": "Sticky Note7"
     },
     {
       "parameters": {
-        "content": "## 2025/05/14 [【 共學校unylearn 一起學】告別重複！打造你的第一個 n8n 自動化工作流 | 部署 & 體驗](https://lu.ma/9ejpx5gi)\n\n### 學習目標（體驗部分）\n- 學習建立工作流\n- 學習如何設置參數以及Credential\n- 學習如何使用他人的工作流",
+        "content": "## 2025/05/14 [【 共學校unylearn 一起學】告別重複！打造你的第一個 n8n 自動化工作流 | 部署 & 體驗](https://lu.ma/9ejpx5gi)\n\n### 學習目標（體驗部分）\n- 學習建立工作流（從IFTTT到n8n）\n- 學習如何設置參數以及Credential\n- 學習如何使用他人的工作流",
         "height": 240,
         "width": 440,
         "color": 3
@@ -419,6 +419,22 @@
       ],
       "id": "98205a72-5cc5-4fba-a783-9f8918279bc9",
       "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## 世和/Huanry 介紹\n![](https://huanry.github.io/img/huanry.png)\n\n平常工作是社群營運，每週會固定整理與我們相關的不同社群活動，分享到群裡。我的工作可以利用自動化工具＋AI幫我完成嗎？\n\n- [021up.org](https://021up.org/)\n- [Portfolio](https://huanry.github.io/portfolio/)",
+        "height": 300,
+        "width": 440,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        140
+      ],
+      "id": "a6afc4e5-d1fe-47d5-898f-a41a0004212d",
+      "name": "Sticky Note10"
     }
   ],
   "pinData": {},
@@ -436,7 +452,7 @@
       "name": "共學校"
     }
   ],
-  "triggerCount": 0,
-  "updatedAt": "2025-05-14T06:15:39.447Z",
-  "versionId": "374d96a0-19f2-4b37-8d9b-e9460c5d6c60"
+  "triggerCount": 1,
+  "updatedAt": "2025-05-14T08:48:06.774Z",
+  "versionId": "bdbe062b-9330-42b6-aca0-e422fd8bc9fb"
 }
