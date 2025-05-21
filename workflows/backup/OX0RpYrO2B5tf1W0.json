@@ -1,14 +1,9 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "When clicking ‘Test workflow’": {
       "main": [
         [
-          {
-            "node": "n8n1",
-            "type": "main",
-            "index": 0
-          },
           {
             "node": "n8n",
             "type": "main",
@@ -304,8 +299,8 @@
       "type": "n8n-nodes-base.n8n",
       "typeVersion": 1,
       "position": [
-        220,
-        0
+        0,
+        180
       ],
       "id": "d40939bb-048d-4647-b6dd-871cdcdb990a",
       "name": "n8n",
@@ -596,8 +591,7 @@
         920,
         200
       ],
-      "typeVersion": 1.2,
-      "disabled": true
+      "typeVersion": 1.2
     },
     {
       "parameters": {
@@ -906,14 +900,14 @@
     {
       "parameters": {
         "content": "## 試驗\n",
-        "height": 780,
+        "height": 1200,
         "width": 680
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -300,
-        -200
+        -280,
+        -220
       ],
       "id": "c89983d9-319f-47ba-9e97-3018d7f7dcfb",
       "name": "Sticky Note4"
@@ -923,7 +917,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [
     {
       "createdAt": "2025-05-14T03:45:10.115Z",
@@ -932,7 +930,7 @@
       "name": "backup"
     }
   ],
-  "triggerCount": 0,
-  "updatedAt": "2025-05-14T06:33:37.959Z",
-  "versionId": "b8c56d19-9331-4417-810f-e1ab4e0acd9c"
+  "triggerCount": 1,
+  "updatedAt": "2025-05-21T02:48:48.438Z",
+  "versionId": "af7f1a0c-8df8-4aaa-acda-716b90a233ef"
 }
