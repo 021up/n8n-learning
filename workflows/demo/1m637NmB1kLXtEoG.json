@@ -368,6 +368,7 @@
   },
   "createdAt": "2025-05-20T11:15:22.472Z",
   "id": "1m637NmB1kLXtEoG",
+  "isArchived": false,
   "meta": null,
   "name": "Line 收據AI辨識自動記帳",
   "nodes": [
