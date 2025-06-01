@@ -1,0 +1,623 @@
+{
+  "active": false,
+  "connections": {
+    "合併流程": {
+      "main": [
+        [
+          {
+            "node": "刪除匯出資料",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "刪除匯出資料": {
+      "main": [
+        [
+          {
+            "node": "通知",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "匯出工作流程": {
+      "main": [
+        [
+          {
+            "node": "檢查工作流程是否匯出成功",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "讀取工作流程備份檔": {
+      "main": [
+        [
+          {
+            "node": "檢查工作流程備份",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "上傳工作流程備份",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "刪除舊備份檔": {
+      "main": [
+        [
+          {
+            "node": "完成上傳工作流程",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "匯出金鑰": {
+      "main": [
+        [
+          {
+            "node": "檢查金鑰是否匯出成功",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "讀取金鑰備份檔": {
+      "main": [
+        [
+          {
+            "node": "檢查備份金鑰",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "上傳金鑰備份",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "檢查工作流程是否匯出成功": {
+      "main": [
+        [
+          {
+            "node": "讀取工作流程備份檔",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "檢查金鑰是否匯出成功": {
+      "main": [
+        [
+          {
+            "node": "讀取金鑰備份檔",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "檢查備份金鑰": {
+      "main": [
+        [
+          {
+            "node": "刪除舊金鑰",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "檢查工作流程備份": {
+      "main": [
+        [
+          {
+            "node": "刪除舊備份檔",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "刪除舊金鑰": {
+      "main": [
+        [
+          {
+            "node": "完成上傳金鑰",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "上傳工作流程備份": {
+      "main": [
+        [
+          {
+            "node": "完成上傳工作流程",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "上傳金鑰備份": {
+      "main": [
+        [
+          {
+            "node": "完成上傳金鑰",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "完成上傳工作流程": {
+      "main": [
+        [
+          {
+            "node": "合併流程",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "完成上傳金鑰": {
+      "main": [
+        [
+          {
+            "node": "合併流程",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "定時": {
+      "main": [
+        [
+          {
+            "node": "匯出金鑰",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "匯出工作流程",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "手動執行": {
+      "main": [
+        [
+          {
+            "node": "匯出金鑰",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "匯出工作流程",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-31T12:30:14.101Z",
+  "id": "RlSOyFAFgZ9RMKin",
+  "isArchived": false,
+  "meta": null,
+  "name": "備份",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "n8n 備份成功！",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        820,
+        260
+      ],
+      "id": "61787c18-812f-49b9-88aa-a720a110cf8e",
+      "name": "通知",
+      "webhookId": "35e8f84e-39cb-477f-a8bd-b7ceb6c6ee3f",
+      "notesInFlow": true,
+      "retryOnFail": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        540,
+        260
+      ],
+      "id": "8a9ccad3-9d32-459d-ab00-88dabe1017da",
+      "name": "合併流程",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "command": "rm -rf /tmp/workflows /tmp/credentials"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        680,
+        260
+      ],
+      "id": "735885cd-426e-4296-beae-0da6cb0ce354",
+      "name": "刪除匯出資料",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "command": "n8n export:workflow --backup --output=/tmp/workflows"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        120
+      ],
+      "id": "60aa8b5b-1170-4bfe-8894-74a0c98b96b7",
+      "name": "匯出工作流程"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/tmp/workflows/*.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        100
+      ],
+      "id": "be4db14c-8d58-4955-8ec9-75afee38ebf3",
+      "name": "讀取工作流程備份檔",
+      "retryOnFail": true,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "operation": "deleteFile",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "deletePermanently": true
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        160,
+        0
+      ],
+      "id": "cb8c3338-f5fa-4212-b886-ceace31d72fe",
+      "name": "刪除舊備份檔",
+      "retryOnFail": true,
+      "alwaysOutputData": false,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "command": "n8n export:credentials --backup --decrypted --output=/tmp/credentials"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -580,
+        340
+      ],
+      "id": "47c167c8-c801-4d50-a97a-bd2cf7f6ba05",
+      "name": "匯出金鑰"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/tmp/credentials/*.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        300
+      ],
+      "id": "76085846-a488-4b7e-a1e5-82f92a780c95",
+      "name": "讀取金鑰備份檔",
+      "retryOnFail": true,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d45543b3-e96b-49d2-954c-83fee6fae3ec",
+              "leftValue": "={{ $json.exitCode }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -440,
+        120
+      ],
+      "id": "97494643-595e-46a8-80a3-2ff6641d81c2",
+      "name": "檢查工作流程是否匯出成功"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d45543b3-e96b-49d2-954c-83fee6fae3ec",
+              "leftValue": "={{ $json.exitCode }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        340
+      ],
+      "id": "b7cd97d0-c49c-4256-927c-0ce5057d856d",
+      "name": "檢查金鑰是否匯出成功"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "{{ $json.fileName }}",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1DRH1bnl7_dxGMQzRw4fS65iroxP96bIN",
+            "mode": "list",
+            "cachedResultName": "n8n 機密資料",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1DRH1bnl7_dxGMQzRw4fS65iroxP96bIN"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        20,
+        300
+      ],
+      "id": "5e6a55c3-dbe1-40da-b134-0da731b7be5f",
+      "name": "檢查備份金鑰",
+      "retryOnFail": true,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "={{ $json.fileName }}",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1tfyMj_8yCNpud_gDzysvfLi0F1Uz7_Sy",
+            "mode": "list",
+            "cachedResultName": "n8n 工作流程備份",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1tfyMj_8yCNpud_gDzysvfLi0F1Uz7_Sy"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e6306876-1db7-421f-b4f1-4c9469420c5f",
+      "name": "檢查工作流程備份",
+      "retryOnFail": true,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "operation": "deleteFile",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "deletePermanently": true
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        160,
+        300
+      ],
+      "id": "48af3365-7750-42d3-82e9-6a8342c2b965",
+      "name": "刪除舊金鑰",
+      "retryOnFail": true,
+      "alwaysOutputData": false,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1tfyMj_8yCNpud_gDzysvfLi0F1Uz7_Sy",
+          "mode": "list",
+          "cachedResultName": "n8n 工作流程備份",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1tfyMj_8yCNpud_gDzysvfLi0F1Uz7_Sy"
+        },
+        "options": {
+          "simplifyOutput": true
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        100,
+        140
+      ],
+      "id": "c1fced9d-9de6-4211-aaf6-c4d5cce23718",
+      "name": "上傳工作流程備份",
+      "notesInFlow": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1DRH1bnl7_dxGMQzRw4fS65iroxP96bIN",
+          "mode": "list",
+          "cachedResultName": "n8n 機密資料",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1DRH1bnl7_dxGMQzRw4fS65iroxP96bIN"
+        },
+        "options": {
+          "simplifyOutput": true
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        80,
+        460
+      ],
+      "id": "99620342-c073-4c08-9b3f-b52adaad686b",
+      "name": "上傳金鑰備份",
+      "notesInFlow": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        340,
+        120
+      ],
+      "id": "7eb5ac51-36cf-4304-b4da-72bfdf9c7ddf",
+      "name": "完成上傳工作流程",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        340,
+        360
+      ],
+      "id": "d1dfc77f-f9a2-4710-b6cd-8c503ea9cc37",
+      "name": "完成上傳金鑰",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6,
+              "triggerAtMinute": 5
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -820,
+        340
+      ],
+      "id": "8ba7dbcf-b667-4b50-8ea8-074c9a81a7e1",
+      "name": "定時"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -820,
+        120
+      ],
+      "id": "67ed80e5-ae11-437a-ad6a-3bf6c58d8073",
+      "name": "手動執行"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-31T13:19:52.017Z",
+  "versionId": "48ed7add-5bf0-4847-b0b9-fc0a478e67d3"
+}
