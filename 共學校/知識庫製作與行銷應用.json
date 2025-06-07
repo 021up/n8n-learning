@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-06-03T08:04:24.231Z",
-  "updatedAt": "2025-06-07T11:22:26.004Z",
+  "updatedAt": "2025-06-07T13:29:11.434Z",
   "id": "maNckumyLFS4jF3B",
   "name": "知識庫製作與行銷應用",
   "active": false,
@@ -437,8 +437,8 @@
     },
     {
       "parameters": {
-        "content": "## 本工作流僅供參考\n\n### 知識庫可以用在哪？\n- 機器人\n- 品牌文章基礎\n\n\n### 原始檔案哪來\n- 爬哪？\n- 內部資料\n\n\n### 知識庫怎麻做\n### 哪些不用n8n\n### 哪些用n8n \n\n### 參考資料\n- [參考資料 n8n 做 RAG](https://duntools.com/supabase-n8n-rag/)\n- [RAG 的限制](https://www.youtube.com/watch?v=p1AwNrOWTRQ&t=2s)",
-        "height": 460,
+        "content": "## 本工作流僅供參考\n\n### 知識庫可以用在哪？\n- 機器人\n- 品牌文章基礎\n\n\n### 原始檔案哪來\n- 爬哪？\n- 內部資料\n\n\n### 知識庫怎麻做\n### 哪些不用n8n\n### 哪些用n8n \n\n### 參考資料\n- [處理Slack](https://github.com/021up/n8n-learning/tree/main/%E5%85%B1%E5%AD%B8%E6%A0%A1/slack%E6%B8%85%E7%90%86)\n- [參考資料 n8n 做 RAG](https://duntools.com/supabase-n8n-rag/)\n- [RAG 的限制](https://www.youtube.com/watch?v=p1AwNrOWTRQ&t=2s)",
+        "height": 560,
         "width": 540
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -597,7 +597,7 @@
       "typeVersion": 1,
       "position": [
         -140,
-        1380
+        1320
       ],
       "id": "72a54d0c-fefa-4e30-914e-c4ccafe59b88",
       "name": "OpenRouter Chat Model2",
@@ -1150,7 +1150,7 @@
       }
     ]
   },
-  "versionId": "38141fd1-0237-4fe8-9c69-3182464a74fb",
+  "versionId": "cee4799e-06d7-45ea-85ac-7ac07e7653d5",
   "triggerCount": 0,
   "shared": [
     {
