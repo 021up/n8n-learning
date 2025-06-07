@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-06-03T08:04:24.231Z",
-  "updatedAt": "2025-06-03T08:39:02.383Z",
+  "updatedAt": "2025-06-07T08:54:14.885Z",
   "id": "maNckumyLFS4jF3B",
   "name": "知識庫製作與行銷應用",
   "active": false,
@@ -36,7 +36,13 @@
         140
       ],
       "id": "4a18ba35-a6ad-445b-b5ef-1bbd5a5088c9",
-      "name": "Google Drive"
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ypvxaI6zEl6aklgc",
+          "name": "嘉鼎-Google Drive account"
+        }
+      }
     },
     {
       "parameters": {
@@ -54,11 +60,17 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.1,
       "position": [
-        220,
-        -20
+        800,
+        -40
       ],
       "id": "7356fdb3-7fde-4596-83b8-b632f46849f5",
-      "name": "Supabase Vector Store"
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "J1bvDJpvsAgetfZV",
+          "name": "嘉鼎Supabase account"
+        }
+      }
     },
     {
       "parameters": {
@@ -68,8 +80,8 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
       "position": [
-        420,
-        200
+        780,
+        160
       ],
       "id": "a3a21a57-db0a-4623-b92d-6f59758bddc7",
       "name": "Default Data Loader"
@@ -83,8 +95,8 @@
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "typeVersion": 1,
       "position": [
-        520,
-        400
+        840,
+        380
       ],
       "id": "6f258ee7-fe63-4025-a3f1-ff1b63b6c234",
       "name": "Recursive Character Text Splitter"
@@ -96,24 +108,30 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        280,
+        320,
         200
       ],
       "id": "e0fe97b7-4033-44f9-b9db-b018e8fb21ba",
-      "name": "Embeddings Google Gemini"
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2TqmUHgQDrNPzkzD",
+          "name": "Google Gemini(MIC)"
+        }
+      }
     },
     {
       "parameters": {
-        "content": "### Slack POSTs to Webhook on every message so we need to filter-out bot messages",
-        "height": 365,
-        "width": 483
+        "content": "### Slack 機器人用\n- 記得Active 每個節點\n- 記得設定credentials",
+        "height": 1125,
+        "width": 2683
       },
       "id": "221ba1f1-5f8b-4c13-bf07-a956593f3a0d",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -380,
-        760
+        -800,
+        2040
       ],
       "typeVersion": 1
     },
@@ -127,8 +145,8 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        760,
-        1180
+        1060,
+        2500
       ],
       "typeVersion": 1
     },
@@ -142,8 +160,8 @@
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        440,
-        1180
+        740,
+        2500
       ],
       "typeVersion": 1
     },
@@ -157,8 +175,8 @@
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        160,
-        1180
+        460,
+        2500
       ],
       "typeVersion": 1
     },
@@ -172,10 +190,11 @@
       "name": "Simple Memory",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "position": [
-        520,
-        1240
+        820,
+        2560
       ],
-      "typeVersion": 1.3
+      "typeVersion": 1.3,
+      "disabled": true
     },
     {
       "parameters": {
@@ -206,10 +225,11 @@
       "name": "Is user message?",
       "type": "n8n-nodes-base.if",
       "position": [
-        -160,
-        920
+        -360,
+        2500
       ],
-      "typeVersion": 2.2
+      "typeVersion": 2.2,
+      "disabled": true
     },
     {
       "parameters": {},
@@ -217,10 +237,11 @@
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        -120,
-        1200
+        -60,
+        2560
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "disabled": true
     },
     {
       "parameters": {},
@@ -228,10 +249,11 @@
       "name": "Wikipedia",
       "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
       "position": [
-        840,
-        1260
+        1140,
+        2580
       ],
-      "typeVersion": 1
+      "typeVersion": 1,
+      "disabled": true
     },
     {
       "parameters": {
@@ -256,12 +278,13 @@
       "name": "Slack",
       "type": "n8n-nodes-base.slack",
       "position": [
-        1140,
-        820
+        1460,
+        2120
       ],
       "webhookId": "e0f8b8ad-7126-487c-88e2-b624dfd16678",
       "typeVersion": 2.3,
       "alwaysOutputData": true,
+      "disabled": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -272,11 +295,12 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        260,
-        1280
+        560,
+        2600
       ],
       "id": "79bd29a8-dbde-4ebe-8c1b-771f929c2452",
-      "name": "OpenRouter Chat Model"
+      "name": "OpenRouter Chat Model",
+      "disabled": true
     },
     {
       "parameters": {
@@ -290,10 +314,11 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.1,
       "position": [
-        360,
-        800
+        600,
+        2280
       ],
       "alwaysOutputData": true,
+      "disabled": true,
       "onError": "continueErrorOutput"
     },
     {
@@ -307,12 +332,13 @@
       "type": "n8n-nodes-base.slackTrigger",
       "typeVersion": 1,
       "position": [
-        -900,
-        680
+        -540,
+        2300
       ],
       "id": "ca3c5bb4-f09d-48da-8bf3-c49d4ba3e42b",
       "name": "Slack Trigger",
-      "webhookId": "ff632df4-b208-4a82-a7ee-e11eb7c4a32d"
+      "webhookId": "ff632df4-b208-4a82-a7ee-e11eb7c4a32d",
+      "disabled": true
     },
     {
       "parameters": {
@@ -322,11 +348,12 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        1240,
-        1260
+        1540,
+        2580
       ],
       "id": "d610a72b-6c10-4a0f-a13a-5b916584ab88",
-      "name": "OpenRouter Chat Model1"
+      "name": "OpenRouter Chat Model1",
+      "disabled": true
     },
     {
       "parameters": {
@@ -351,11 +378,12 @@
       "name": "Slack1",
       "type": "n8n-nodes-base.slack",
       "position": [
-        300,
-        540
+        -280,
+        2300
       ],
       "webhookId": "e0f8b8ad-7126-487c-88e2-b624dfd16678",
-      "typeVersion": 2.3
+      "typeVersion": 2.3,
+      "disabled": true
     },
     {
       "parameters": {
@@ -364,11 +392,12 @@
       "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1.1,
       "position": [
-        1040,
-        1120
+        1340,
+        2440
       ],
       "id": "9adc23d0-c2fc-4809-9743-74fde4644801",
-      "name": "心智元資料庫"
+      "name": "心智元資料庫",
+      "disabled": true
     },
     {
       "parameters": {
@@ -385,26 +414,12 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.1,
       "position": [
-        1040,
-        1440
+        1340,
+        2760
       ],
       "id": "21da8d85-92f8-4291-a054-9a670fbaa07b",
-      "name": "心智元資料庫1"
-    },
-    {
-      "parameters": {
-        "content": "### Send agent's output as Slack message\n",
-        "height": 243,
-        "width": 460
-      },
-      "id": "e351d4de-03c9-458b-91ae-1540e6fd0076",
-      "name": "Sticky Note4",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        220,
-        720
-      ],
-      "typeVersion": 1
+      "name": "心智元資料庫1",
+      "disabled": true
     },
     {
       "parameters": {
@@ -413,103 +428,350 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1100,
-        1640
+        1400,
+        2960
       ],
       "id": "ba35792b-fc95-44df-8f97-87546d9a1c1b",
-      "name": "Embeddings Google Gemini1"
+      "name": "Embeddings Google Gemini1",
+      "disabled": true
     },
     {
       "parameters": {
-        "events": [
-          "update"
-        ]
-      },
-      "type": "n8n-nodes-base.n8nTrigger",
-      "typeVersion": 1,
-      "position": [
-        980,
-        60
-      ],
-      "id": "7133da0b-0580-4919-b804-1c55e36ba66d",
-      "name": "n8n Trigger"
-    },
-    {
-      "parameters": {
-        "content": "# 本工作流尚未完成，僅供參考",
-        "height": 100,
+        "content": "## 本工作流僅供參考\n\n### 知識庫可以用在哪？\n- 機器人\n- 品牌文章基礎\n\n\n### 原始檔案哪來\n- 爬哪？\n- 內部資料\n\n\n### 知識庫怎麻做\n### 哪些不用n8n\n### 哪些用n8n \n\n### 參考資料\n- [參考資料 n8n 做 RAG](https://duntools.com/supabase-n8n-rag/)\n- [RAG 的限制](https://www.youtube.com/watch?v=p1AwNrOWTRQ&t=2s)",
+        "height": 460,
         "width": 540
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -300,
-        -380
+        -1480,
+        -560
       ],
       "id": "bcf33297-b7db-45a3-8e5e-1376037033d2",
       "name": "Sticky Note5"
     },
     {
       "parameters": {
-        "operation": "get",
-        "workflowId": {
-          "__rl": true,
-          "value": "maNckumyLFS4jF3B",
-          "mode": "list",
-          "cachedResultName": "知識庫製作與行銷 (#maNckumyLFS4jF3B)"
-        },
-        "requestOptions": {}
+        "content": "## 注意點\n\n- [查看Docs](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoresupabase/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=%40n8n%2Fn8n-nodes-langchain.vectorStoreSupabase)\n- [查看 quickstart for setting up your vector store](https://supabase.com/docs/guides/ai/langchain?database-method=sql)\n- [找到 Initializing your database](https://supabase.com/docs/guides/ai/langchain?database-method=dashboard&queryGroups=database-method#initializing-your-database)\n- 依照LLM模型去修改SQL,注意LLM 要支持embedding，Vector 維度要改（可以問AI怎麻改）\n- sql 貼上 Supabase sql 運行器，然後查看資料庫增加",
+        "height": 380,
+        "width": 500
       },
-      "type": "n8n-nodes-base.n8n",
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1220,
-        60
+        720,
+        -260
       ],
-      "id": "674a8499-b83e-4611-baa4-86bae974d2f0",
-      "name": "n8n",
+      "id": "481f9b09-37d9-466b-a650-3c7312414ba4",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## 注意點\n\n- 先知道要選取的Model及其支持向量維度，才進行Supabase Vector Store",
+        "height": 460,
+        "width": 460
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        140,
+        -80
+      ],
+      "id": "c4235c21-1db5-4331-893e-9353b8f2a489",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -420,
+        1000
+      ],
+      "id": "bd830fce-df09-450f-aac3-a81846cacae1",
+      "name": "When chat message received",
+      "webhookId": "645b10fd-9b4e-461e-9546-c606c9b3dfe0"
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-r1-0528:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        780,
+        1580
+      ],
+      "id": "36ecd8dd-00ba-45e3-89d8-b8f27499dda2",
+      "name": "OpenRouter Chat Model3",
       "credentials": {
-        "n8nApi": {
-          "id": "W41PrqEfM4WamItM",
-          "name": "n8n account"
+        "openRouterApi": {
+          "id": "cDZzak9LVmWuB9c8",
+          "name": "OpenRouter account"
         }
       }
     },
     {
       "parameters": {
-        "resource": "file",
-        "operation": "edit",
-        "owner": {
-          "__rl": true,
-          "value": "https://github.com/021up",
-          "mode": "url"
-        },
-        "repository": {
-          "__rl": true,
-          "value": "n8n-learning",
-          "mode": "list",
-          "cachedResultName": "n8n-learning",
-          "cachedResultUrl": "https://github.com/021up/n8n-learning"
-        },
-        "filePath": "共學校/知識庫製作與行銷應用.json",
-        "fileContent": "={{JSON.stringify($json, null, 2)}}",
-        "commitMessage": "=最後更新於 {{ $json.updatedAt }}"
+        "description": "心智元資料庫"
       },
-      "type": "n8n-nodes-base.github",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1.1,
       "position": [
-        1420,
-        120
+        460,
+        1300
       ],
-      "id": "4bfa9663-7fe4-40aa-ade0-d456ac287b49",
-      "name": "GitHub",
-      "webhookId": "43b8ff7d-a277-494d-8ff9-a57167f103c0",
+      "id": "d1a347ee-12ee-4a29-b3ac-ca948e4399eb",
+      "name": "心智元資料庫2"
+    },
+    {
+      "parameters": {
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        380,
+        1440
+      ],
+      "id": "8a8c11f8-a1c3-4cf3-b763-845890d861fd",
+      "name": "心智元資料庫3",
       "credentials": {
-        "githubApi": {
-          "id": "0X05wI5bHtDL4JNm",
-          "name": "GitHub account-021up"
+        "supabaseApi": {
+          "id": "J1bvDJpvsAgetfZV",
+          "name": "嘉鼎Supabase account"
         }
       }
+    },
+    {
+      "parameters": {
+        "modelName": "models/text-embedding-004"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        400,
+        1640
+      ],
+      "id": "729ddcad-387a-4169-984e-874a0bce5aba",
+      "name": "Embeddings Google Gemini2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8Hs106HIbMKjlTyp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.chatInput }}",
+        "contextWindowLength": 30
+      },
+      "id": "7e624414-ca28-4b59-8f90-8f4fb0db9c72",
+      "name": "Simple Memory1",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        60,
+        1340
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-r1-0528:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        1380
+      ],
+      "id": "72a54d0c-fefa-4e30-914e-c4ccafe59b88",
+      "name": "OpenRouter Chat Model2",
+      "credentials": {
+        "openRouterApi": {
+          "id": "cDZzak9LVmWuB9c8",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        240,
+        1340
+      ],
+      "id": "65281bcd-7ebb-4c59-95a1-4c3ff0cd500a",
+      "name": "Wikipedia1"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "=你是心智元資料庫的作者，所有回答都會以心智元資料庫為主要資料依據。如果資料庫沒有對應答案，可以參考Wikipedia，但必須說明。\n\n除此之外，你也是一位熱愛閱讀維基百科與各種科普知識的好學者，常提到如「擴增集智」、「ACIS」、「人心智能」等字詞，擅長協助使用者探討團結再生經濟與集體智能等主題。\n\n請根據使用者的語言來進行回答（如使用者為中文，則使用繁體中文）。\n\n使用者輸入：『{{ $json.chatInput }}』  \n請先判斷使用者語言，並以該語言作答。\n\n然而，所有回答**必須遵循以下回應格式**：\n\nRESPONSE FORMAT INSTRUCTIONS:\n1. 語言：請使用使用者原始提問的語言。\n2. 資料來源：若涉及「心智元資料庫」或「Wikipedia」，**務必查詢該資料庫並註明引用**。\n3. 回答結構：\n   - 首段：簡明摘要（回答核心問題）\n   - 中段：詳細解釋與背景脈絡\n   - 結尾：延伸概念建議（如擴增集智、集體智能、人心智能等）"
+        }
+      },
+      "id": "6e1302a2-8023-416e-b5aa-6dec55128e15",
+      "name": "AI Agent2",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        1000
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "990975bc-d813-474b-995a-1f239b1f22d2",
+      "name": "Question & Answer",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1380,
+        1140
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "company",
+        "toolDescription": "心智元資料庫",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        1700,
+        1420
+      ],
+      "id": "33b13e1d-e295-4751-bcf2-e31613982c89",
+      "name": "心智元資料庫4",
+      "credentials": {
+        "supabaseApi": {
+          "id": "J1bvDJpvsAgetfZV",
+          "name": "嘉鼎Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/text-embedding-004"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        1620
+      ],
+      "id": "1a671348-8539-4092-ac7d-7bfe1274253f",
+      "name": "Embeddings Google Gemini3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8Hs106HIbMKjlTyp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-sonnet-4",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        1600
+      ],
+      "id": "93e808f0-c684-49b3-81fa-2fb24e122ec7",
+      "name": "OpenRouter Chat Model4",
+      "credentials": {
+        "openRouterApi": {
+          "id": "cDZzak9LVmWuB9c8",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        1580
+      ],
+      "id": "dc14528a-f96c-44c4-b3b5-52aa0685266d",
+      "name": "Wikipedia2"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.chatInput }}",
+        "contextWindowLength": 30
+      },
+      "id": "cac5ecea-b41c-4e89-bcd7-07d0f1d094d0",
+      "name": "Simple Memory2",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        1400,
+        1600
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "content": "## 注意點\n\n- 這裡是用Openrouter付費模型，才支持tool use，因而要付費",
+        "height": 880,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        960
+      ],
+      "id": "1d549208-f492-40e7-baca-0ae254aa0888",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## 注意點\n\n- 這裡的AI Agent 節點是舊的，官方已棄用，未來需要改。",
+        "height": 420,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        840
+      ],
+      "id": "2cca4376-0077-41c9-a6e5-b0b318bcf95c",
+      "name": "Sticky Note9"
     }
   ],
   "connections": {
@@ -581,13 +843,7 @@
     },
     "Is user message?": {
       "main": [
-        [
-          {
-            "node": "AI Agent1",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         [
           {
             "node": "No Operation, do nothing",
@@ -697,23 +953,155 @@
         ]
       ]
     },
-    "n8n Trigger": {
+    "No Operation, do nothing": {
       "main": [
         [
           {
-            "node": "n8n",
+            "node": "AI Agent1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "n8n": {
+    "When chat message received": {
       "main": [
         [
           {
-            "node": "GitHub",
+            "node": "AI Agent2",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "心智元資料庫2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "心智元資料庫3": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "心智元資料庫2",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "心智元資料庫3",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "心智元資料庫2": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "心智元資料庫4": {
+      "ai_tool": [
+        [
+          {
+            "node": "Question & Answer",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini3": {
+      "ai_embedding": [
+        [
+          {
+            "node": "心智元資料庫4",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question & Answer",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Question & Answer",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "Question & Answer",
+            "type": "ai_memory",
             "index": 0
           }
         ]
@@ -762,7 +1150,7 @@
       }
     ]
   },
-  "versionId": "84b11da1-f6a3-4d41-963e-780c831f4483",
+  "versionId": "d9825d9c-5066-4f52-8014-d14211b24b18",
   "triggerCount": 0,
   "shared": [
     {
