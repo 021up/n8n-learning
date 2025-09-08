@@ -1,0 +1,138 @@
+{
+  "name": "Web Scraper with AI",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        192,
+        -64
+      ],
+      "id": "fad83590-8568-42a9-b449-3fb77bd1b843",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://books.toscrape.com",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        416,
+        -64
+      ],
+      "id": "fb3f547b-c6b8-4149-8fbd-a8e899d927c7",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        992,
+        -64
+      ],
+      "id": "c0d201b0-3726-4beb-91d2-de51e3ddb37c",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        720,
+        160
+      ],
+      "id": "39dc544b-ca29-43f0-84df-a8e947c54a67",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2TqmUHgQDrNPzkzD",
+          "name": "Google Gemini(MIC)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.data }}",
+        "schemaType": "fromJson",
+        "jsonSchemaExample": "[\n  {\n    \"title\": \"Book Title 1\",\n    \"url\": \"https://example.com/book1\"\n  },\n  {\n    \"title\": \"Book Title 2\",\n    \"url\": \"https://example.com/book2\"\n  },\n  {\n    \"title\": \"Book Title 3\",\n    \"url\": \"https://example.com/book3\"\n  }\n]\n",
+        "options": {
+          "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        640,
+        -64
+      ],
+      "id": "b79f969d-ac95-4810-afd5-0c83349cd77d",
+      "name": "Information Extractor"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b154c0bb-38fb-4f25-9a50-3862710ee1b6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "26927a3d5a21d95e410e7b83cd62488f3871ccee725a95cb819f52d6d27fae78"
+  },
+  "id": "mFx1MlePYGPZE2mA",
+  "tags": []
+}
