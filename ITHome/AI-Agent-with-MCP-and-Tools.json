@@ -1,0 +1,199 @@
+{
+  "name": "AI-Agent-with-MCP-and-Tools",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        264,
+        0
+      ],
+      "id": "01bc73f3-6c18-40f5-b6a9-ba1e0e88ce53",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        80,
+        224
+      ],
+      "id": "924e7408-321c-428b-90c8-6c26688a08f6",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8Hs106HIbMKjlTyp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        224
+      ],
+      "id": "5ac58591-9322-48fe-882f-0f266ecb8973",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://mcp.jina.ai/sse",
+        "authentication": "bearerAuth"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        224
+      ],
+      "id": "e4662a39-2ca8-4c95-a3fe-22450cd771ca",
+      "name": "MCP Client",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "UJrHC8LQ0jB6GbQC",
+          "name": "Jina-Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "19028941-8b6a-800b-9c9b-da43e9264996",
+          "mode": "list",
+          "cachedResultName": "部落格",
+          "cachedResultUrl": "https://www.notion.so/190289418b6a800b9c9bda43e9264996"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
+        "blockUi": {
+          "blockValues": [
+            {
+              "richText": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('blockValues0_Rich_Text', ``, 'boolean') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        464,
+        224
+      ],
+      "id": "1f5187eb-5509-435a-93f3-7269db9dceb6",
+      "name": "Create a database page in Notion",
+      "credentials": {
+        "notionApi": {
+          "id": "xqasr30FMto5qV3D",
+          "name": "115B-Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database_Page', ``, 'string') }}"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        224
+      ],
+      "id": "de2313e6-0d95-4a40-96b5-7b674e06d785",
+      "name": "Update a database page in Notion",
+      "credentials": {
+        "notionApi": {
+          "id": "xqasr30FMto5qV3D",
+          "name": "115B-Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a database page in Notion": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a database page in Notion": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "63f89415-92b8-468b-9b22-511f09698ef1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "26927a3d5a21d95e410e7b83cd62488f3871ccee725a95cb819f52d6d27fae78"
+  },
+  "id": "2hDUOKdQicMst0v2",
+  "tags": []
+}
