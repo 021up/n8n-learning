@@ -8,7 +8,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        264,
+        272,
         0
       ],
       "id": "01bc73f3-6c18-40f5-b6a9-ba1e0e88ce53",
@@ -46,26 +46,6 @@
     },
     {
       "parameters": {
-        "endpointUrl": "https://mcp.jina.ai/sse",
-        "authentication": "bearerAuth"
-      },
-      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
-      "typeVersion": 1.1,
-      "position": [
-        336,
-        224
-      ],
-      "id": "e4662a39-2ca8-4c95-a3fe-22450cd771ca",
-      "name": "MCP Client",
-      "credentials": {
-        "httpBearerAuth": {
-          "id": "UJrHC8LQ0jB6GbQC",
-          "name": "Jina-Bearer Auth account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "databasePage",
         "databaseId": {
           "__rl": true,
@@ -88,7 +68,7 @@
       "type": "n8n-nodes-base.notionTool",
       "typeVersion": 2.2,
       "position": [
-        464,
+        480,
         224
       ],
       "id": "1f5187eb-5509-435a-93f3-7269db9dceb6",
@@ -114,7 +94,7 @@
       "type": "n8n-nodes-base.notionTool",
       "typeVersion": 2.2,
       "position": [
-        592,
+        640,
         224
       ],
       "id": "de2313e6-0d95-4a40-96b5-7b674e06d785",
@@ -123,6 +103,26 @@
         "notionApi": {
           "id": "xqasr30FMto5qV3D",
           "name": "115B-Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://mcp.jina.ai/sse",
+        "authentication": "bearerAuth"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        224
+      ],
+      "id": "e4662a39-2ca8-4c95-a3fe-22450cd771ca",
+      "name": "Jina MCP Client",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "UJrHC8LQ0jB6GbQC",
+          "name": "Jina-Bearer Auth account"
         }
       }
     }
@@ -151,17 +151,6 @@
         ]
       ]
     },
-    "MCP Client": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Create a database page in Notion": {
       "ai_tool": [
         [
@@ -183,13 +172,24 @@
           }
         ]
       ]
+    },
+    "Jina MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "63f89415-92b8-468b-9b22-511f09698ef1",
+  "versionId": "7d4f15a3-7005-489a-b3f4-dc1dafd11cb7",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "26927a3d5a21d95e410e7b83cd62488f3871ccee725a95cb819f52d6d27fae78"
