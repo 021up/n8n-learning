@@ -1,0 +1,149 @@
+{
+  "name": "Use-Workflow-as-MCP",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7f7f3914-44b8-4f3b-9f79-a67cbe5b43ee",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "authentication": "bearerAuth",
+        "path": "783385c9-7a33-4c70-868c-a1a7942a9d68"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        32,
+        192
+      ],
+      "id": "12f06702-c056-41c5-b91c-0d5bea7349f7",
+      "name": "MCP Server Trigger",
+      "webhookId": "783385c9-7a33-4c70-868c-a1a7942a9d68",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "JoOJZPi02ZhtLFli",
+          "name": "Playwright-MIC-Cloud--Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "這是一個Notion頁面建立的工具，輸入的資料Inputt，將會變成標題。",
+        "workflowId": {
+          "__rl": true,
+          "value": "419TR8BS6W5pwilF",
+          "mode": "list",
+          "cachedResultName": "Use-Workflow-as-MCP"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Inputt": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Inputt', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "input"
+          ],
+          "schema": [
+            {
+              "id": "Inputt",
+              "displayName": "Inputt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        104,
+        416
+      ],
+      "id": "fd2f2c43-577b-4be6-861c-6e99c200f12d",
+      "name": "Call n8n Workflow Tool"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "19028941-8b6a-800b-9c9b-da43e9264996",
+          "mode": "list",
+          "cachedResultName": "部落格",
+          "cachedResultUrl": "https://www.notion.so/190289418b6a800b9c9bda43e9264996"
+        },
+        "title": "={{ $json.Inputtt }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "cad01962-3e3d-488c-b7ee-ca646e0224ba",
+      "name": "Create a database page",
+      "credentials": {
+        "notionApi": {
+          "id": "xqasr30FMto5qV3D",
+          "name": "115B-Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Create a database page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call n8n Workflow Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "98da4dcf-7d3b-405b-9f16-e3514bec0eb6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "26927a3d5a21d95e410e7b83cd62488f3871ccee725a95cb819f52d6d27fae78"
+  },
+  "id": "419TR8BS6W5pwilF",
+  "tags": []
+}
