@@ -155,7 +155,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// 產生 1~50 的頁碼\nconst pages = Array.from({ length: 50 }, (_, i) => i + 1);\n\nreturn pages.map(p => ({\n  json: { page: p }\n}));\n"
+        "jsCode": "// 這段程式會產生 1 到 50 的數字，並輸出為 items\nconst items = [];\n\nfor (let i = 1; i <= 50; i++) {\n  items.push({ json: { page: i } });\n}\n\nreturn items;\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -713,7 +713,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "93580add-5c12-4f85-8900-3d8b93925748",
+  "versionId": "e007591d-49c2-4e05-99ea-6935ef42e39e",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "26927a3d5a21d95e410e7b83cd62488f3871ccee725a95cb819f52d6d27fae78"
