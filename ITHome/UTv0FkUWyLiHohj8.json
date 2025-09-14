@@ -1,26 +1,11 @@
 {
   "createdAt": "2025-06-03T08:57:51.188Z",
-  "updatedAt": "2025-09-14T07:12:34.741Z",
+  "updatedAt": "2025-09-14T07:14:52.506Z",
   "id": "UTv0FkUWyLiHohj8",
   "name": "Github 上傳（ithome）",
   "active": false,
   "isArchived": false,
   "nodes": [
-    {
-      "parameters": {
-        "events": [
-          "update"
-        ]
-      },
-      "type": "n8n-nodes-base.n8nTrigger",
-      "typeVersion": 1,
-      "position": [
-        0,
-        -256
-      ],
-      "id": "b58b5c05-4348-4af4-8463-77920099250b",
-      "name": "n8n Trigger"
-    },
     {
       "parameters": {
         "filters": {
@@ -32,7 +17,7 @@
       "typeVersion": 1,
       "position": [
         224,
-        -256
+        -112
       ],
       "id": "36b808cf-3626-4b18-abce-986080c39c22",
       "name": "n8n",
@@ -65,8 +50,8 @@
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
       "position": [
-        816,
-        -96
+        672,
+        -256
       ],
       "id": "883b3653-36e6-4ef3-bb9d-277387f7ff5a",
       "name": "GitHub1",
@@ -102,8 +87,8 @@
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
       "position": [
-        1264,
-        -96
+        1120,
+        -112
       ],
       "id": "a45515a7-87b7-4c6c-b84a-a53ea901f753",
       "name": "GitHub2",
@@ -143,8 +128,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1040,
-        -96
+        896,
+        -184
       ],
       "id": "5d50cae6-b36a-44fc-89c6-03a18c2884ab",
       "name": "If"
@@ -157,24 +142,24 @@
       "typeVersion": 3,
       "position": [
         448,
-        -256
+        -112
       ],
       "id": "031ff11c-dcec-4668-a1da-914f25957bcb",
       "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -112
+      ],
+      "id": "7c65375e-a254-4323-a163-712c50cb60b9",
+      "name": "When clicking ‘Execute workflow’"
     }
   ],
   "connections": {
-    "n8n Trigger": {
-      "main": [
-        [
-          {
-            "node": "n8n",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "n8n": {
       "main": [
         [
@@ -237,6 +222,17 @@
           }
         ]
       ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -245,7 +241,7 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "8bf70420-667a-402c-889c-611e10fe8b56",
+  "versionId": "cfa22be8-4607-4367-a7fe-fdd1f22033c3",
   "triggerCount": 1,
   "shared": [
     {
