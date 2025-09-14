@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-14T01:50:34.339Z",
-  "updatedAt": "2025-09-14T06:27:29.804Z",
+  "updatedAt": "2025-09-14T06:59:10.550Z",
   "id": "QgFRhgvi22gL0zTL",
   "name": "d17-Split-and-Merge",
   "active": false,
@@ -65,6 +65,21 @@
     },
     {
       "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1088,
+        32
+      ],
+      "id": "b128c140-f49f-493d-9a31-688e4cb891e2",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
         "fieldToSplitOut": "title",
         "options": {}
       },
@@ -75,7 +90,7 @@
         -64
       ],
       "id": "76c52db6-822b-458e-bada-35764de6a8f9",
-      "name": "Split Out"
+      "name": "title-Split Out"
     },
     {
       "parameters": {
@@ -89,22 +104,7 @@
         128
       ],
       "id": "4afaa144-9602-48bb-a8f2-b886f3edfdc4",
-      "name": "Split Out1"
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combineBy": "combineByPosition",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        1088,
-        32
-      ],
-      "id": "b128c140-f49f-493d-9a31-688e4cb891e2",
-      "name": "Merge"
+      "name": "url-Split Out"
     }
   ],
   "connections": {
@@ -123,12 +123,12 @@
       "main": [
         [
           {
-            "node": "Split Out",
+            "node": "title-Split Out",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Split Out1",
+            "node": "url-Split Out",
             "type": "main",
             "index": 0
           }
@@ -146,7 +146,7 @@
         ]
       ]
     },
-    "Split Out": {
+    "title-Split Out": {
       "main": [
         [
           {
@@ -157,7 +157,7 @@
         ]
       ]
     },
-    "Split Out1": {
+    "url-Split Out": {
       "main": [
         [
           {
@@ -175,7 +175,7 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "464069d4-9b86-43c1-ae39-423323dd651d",
+  "versionId": "64d073b9-7051-4b3d-9833-3b63ece55ceb",
   "triggerCount": 0,
   "shared": [
     {
