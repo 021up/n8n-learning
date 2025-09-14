@@ -1,0 +1,267 @@
+{
+  "createdAt": "2025-06-03T08:57:51.188Z",
+  "updatedAt": "2025-09-14T07:12:34.741Z",
+  "id": "UTv0FkUWyLiHohj8",
+  "name": "Github 上傳（ithome）",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "events": [
+          "update"
+        ]
+      },
+      "type": "n8n-nodes-base.n8nTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -256
+      ],
+      "id": "b58b5c05-4348-4af4-8463-77920099250b",
+      "name": "n8n Trigger"
+    },
+    {
+      "parameters": {
+        "filters": {
+          "tags": "=ithome"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -256
+      ],
+      "id": "36b808cf-3626-4b18-abce-986080c39c22",
+      "name": "n8n",
+      "credentials": {
+        "n8nApi": {
+          "id": "W41PrqEfM4WamItM",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "https://github.com/021up",
+          "mode": "url"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-learning",
+          "mode": "list",
+          "cachedResultName": "n8n-learning",
+          "cachedResultUrl": "https://github.com/021up/n8n-learning"
+        },
+        "filePath": "=ITHome/{{ $json.id }}.json",
+        "fileContent": "={{JSON.stringify($json, null, 2)}}",
+        "commitMessage": "=「{{ $json.name }}」｜最後更新於 {{ $json.updatedAt }}"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        816,
+        -96
+      ],
+      "id": "883b3653-36e6-4ef3-bb9d-277387f7ff5a",
+      "name": "GitHub1",
+      "webhookId": "43b8ff7d-a277-494d-8ff9-a57167f103c0",
+      "credentials": {
+        "githubApi": {
+          "id": "0X05wI5bHtDL4JNm",
+          "name": "GitHub account-021up"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": {
+          "__rl": true,
+          "value": "https://github.com/021up",
+          "mode": "url"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-learning",
+          "mode": "list",
+          "cachedResultName": "n8n-learning",
+          "cachedResultUrl": "https://github.com/021up/n8n-learning"
+        },
+        "filePath": "=ITHome/{{ $('n8n').item.json.id }}.json",
+        "fileContent": "={{JSON.stringify($('n8n').item.json, null, 2)}}",
+        "commitMessage": "=「{{ $('n8n').item.json.name }}」｜最後更新於 {{ $('n8n').item.json.updatedAt }}"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1264,
+        -96
+      ],
+      "id": "a45515a7-87b7-4c6c-b84a-a53ea901f753",
+      "name": "GitHub2",
+      "webhookId": "43b8ff7d-a277-494d-8ff9-a57167f103c0",
+      "credentials": {
+        "githubApi": {
+          "id": "0X05wI5bHtDL4JNm",
+          "name": "GitHub account-021up"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "dee2646d-5ac5-49d3-a5ad-e9717e2349dc",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        -96
+      ],
+      "id": "5d50cae6-b36a-44fc-89c6-03a18c2884ab",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        448,
+        -256
+      ],
+      "id": "031ff11c-dcec-4668-a1da-914f25957bcb",
+      "name": "Loop Over Items"
+    }
+  ],
+  "connections": {
+    "n8n Trigger": {
+      "main": [
+        [
+          {
+            "node": "n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "GitHub2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "GitHub1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "8bf70420-667a-402c-889c-611e10fe8b56",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-06-03T08:57:51.188Z",
+      "updatedAt": "2025-06-03T08:57:51.188Z",
+      "role": "workflow:owner",
+      "workflowId": "UTv0FkUWyLiHohj8",
+      "projectId": "6NV7foKyOeJG8Mz6"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-14T06:27:04.834Z",
+      "updatedAt": "2025-09-14T06:27:04.834Z",
+      "id": "S14KyMmdLj6QsyYh",
+      "name": "ithome"
+    }
+  ]
+}
