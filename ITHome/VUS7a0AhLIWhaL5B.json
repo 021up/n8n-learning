@@ -1,0 +1,758 @@
+{
+  "createdAt": "2025-09-13T09:00:06.160Z",
+  "updatedAt": "2025-09-14T06:28:04.469Z",
+  "id": "VUS7a0AhLIWhaL5B",
+  "name": "Web-Scraper-Data-Flow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -768,
+        736
+      ],
+      "id": "0e39cffa-98fe-4441-a871-5263c96efc23",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": "article > h3 > a",
+              "returnValue": "attribute",
+              "attribute": "title",
+              "returnArray": true
+            },
+            {
+              "key": "url",
+              "cssSelector": "article > h3 > a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        736
+      ],
+      "id": "d8e03776-5472-4fd2-bbd8-7f7b05da54f8",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "url": "=https://books.toscrape.com/catalogue/page-{{ $json.page }}.html",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        736
+      ],
+      "id": "3f52f017-158f-4793-a64e-7af98f8341d8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        576,
+        736
+      ],
+      "id": "90e80982-10da-44f3-a3d4-062c34cb180c",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -320,
+        736
+      ],
+      "id": "573fcebe-0dee-4c3c-86c9-1a492b0d0658",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "app0YOtocQKi2klZU",
+          "mode": "list",
+          "cachedResultName": "books",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblEs8TxpLF5aAxj2",
+          "mode": "list",
+          "cachedResultName": "book-data",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU/tblEs8TxpLF5aAxj2"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "title"
+          ],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        800,
+        816
+      ],
+      "id": "8ef80dea-b74d-4c40-a67c-4f7f518093da",
+      "name": "Create or update a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "YGwKwH0I5nUFG9SA",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 這段程式會產生 1 到 50 的數字，並輸出為 items\nconst items = [];\n\nfor (let i = 1; i <= 50; i++) {\n  items.push({ json: { page: i } });\n}\n\nreturn items;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        736
+      ],
+      "id": "c8ec5d21-9901-4202-9b61-7e501d0da284",
+      "name": "Set 50 Pages"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "title",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        352,
+        640
+      ],
+      "id": "5f0c5e72-bc6a-432e-bff6-f0d84274df44",
+      "name": "Split title"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "url",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        352,
+        832
+      ],
+      "id": "e8baf761-eee5-4af7-b589-443f4c5aec2f",
+      "name": "Split url"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "VUS7a0AhLIWhaL5B",
+          "mode": "list",
+          "cachedResultName": "Data-Flow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        432
+      ],
+      "id": "55c591f2-8ce2-4753-bd74-f9bbf53ddc54",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -768,
+        1136
+      ],
+      "id": "c805ec5a-b097-4ed2-aa70-a0d581949381",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app0YOtocQKi2klZU",
+          "mode": "list",
+          "cachedResultName": "books",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblEs8TxpLF5aAxj2",
+          "mode": "list",
+          "cachedResultName": "book-data",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU/tblEs8TxpLF5aAxj2"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -544,
+        1136
+      ],
+      "id": "8eccf38d-7f65-43f0-856e-6b958e4a7d2b",
+      "name": "Search records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "YGwKwH0I5nUFG9SA",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -320,
+        1136
+      ],
+      "id": "48199ac9-939d-4abc-9cc7-265b0ba777e5",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "app0YOtocQKi2klZU",
+          "mode": "list",
+          "cachedResultName": "books",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblEs8TxpLF5aAxj2",
+          "mode": "list",
+          "cachedResultName": "book-data",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU/tblEs8TxpLF5aAxj2"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ $('Search records').item.json.url }}",
+            "Price (incl. tax)": "={{ $json['Price (incl. tax)'] }}",
+            "Price (excl. tax)": "={{ $json['Price (excl. tax)'] }}",
+            "Availability": "={{ $json.Availability }}",
+            "Classification": "={{ $json.Classification }}"
+          },
+          "matchingColumns": [
+            "url"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Price (incl. tax)",
+              "displayName": "Price (incl. tax)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Price (excl. tax)",
+              "displayName": "Price (excl. tax)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Classification",
+              "displayName": "Classification",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        576,
+        1136
+      ],
+      "id": "9c9a6fec-38ab-47f1-ad79-cdfdad76e932",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "YGwKwH0I5nUFG9SA",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://books.toscrape.com/catalogue/{{ $json.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        1056
+      ],
+      "id": "4cfc6e18-d2d5-4fd1-a468-9208e3e3142f",
+      "name": "HTTP Request for each"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "Price (incl. tax)",
+              "cssSelector": "#content_inner > article > table > tbody > tr:nth-child(4) > td"
+            },
+            {
+              "key": "Price (excl. tax)",
+              "cssSelector": "#content_inner > article > table > tbody > tr:nth-child(3) > td"
+            },
+            {
+              "key": "Availability",
+              "cssSelector": "#content_inner > article > table > tbody > tr:nth-child(6) > td"
+            },
+            {
+              "key": "Classification",
+              "cssSelector": "body > div > div > ul > li:nth-child(3) > a"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        1056
+      ],
+      "id": "77b71a19-05af-4ba6-8920-2dfd9be388cd",
+      "name": "HTML for each"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"page\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,\n 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,\n 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,\n 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,\n 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]\n\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -768,
+        320
+      ],
+      "id": "2e98a02b-696b-4e4b-8f26-2f458efd5ae5",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "page",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        320
+      ],
+      "id": "16bedea0-2505-478a-937f-d9f2b1b5e006",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const text = item.json[\"Availability\"] || \"\";\n  const numberMatch = text.match(/\\d+/); // 擷取第一組數字\n  const numberOnly = numberMatch ? numberMatch[0] : \"\";\n\n  item.json[\"Availability\"] = numberOnly;\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        1056
+      ],
+      "id": "1a7e33f8-bcd3-4406-9415-511bbda5af6f",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 368,
+        "width": 864
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -128,
+        608
+      ],
+      "typeVersion": 1,
+      "id": "f909a09c-7fe7-4109-91bb-3dcefcd4d3d7",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set 50 Pages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Split title",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Create or update a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a record": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set 50 Pages": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split title": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split url": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request for each",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request for each": {
+      "main": [
+        [
+          {
+            "node": "HTML for each",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML for each": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "161dd9a7-4cd6-4001-806d-e2c85bfd6778",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-13T09:00:06.160Z",
+      "updatedAt": "2025-09-13T09:00:06.160Z",
+      "role": "workflow:owner",
+      "workflowId": "VUS7a0AhLIWhaL5B",
+      "projectId": "6NV7foKyOeJG8Mz6"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-14T06:27:04.834Z",
+      "updatedAt": "2025-09-14T06:27:04.834Z",
+      "id": "S14KyMmdLj6QsyYh",
+      "name": "ithome"
+    }
+  ]
+}
