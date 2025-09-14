@@ -1166,6 +1166,7 @@
         "name": "Huanry Huang <physics5372@hotmail.com>",
         "type": "personal",
         "icon": null,
+        "description": null,
         "projectRelations": [
           {
             "createdAt": "2025-04-18T06:42:13.029Z",
@@ -1175,7 +1176,7 @@
             "projectId": "6NV7foKyOeJG8Mz6",
             "user": {
               "createdAt": "2025-04-18T06:42:10.386Z",
-              "updatedAt": "2025-05-20T14:27:14.856Z",
+              "updatedAt": "2025-09-13T16:01:24.795Z",
               "id": "2a8d2e0c-a46c-411b-93b7-52bbdc416950",
               "email": "physics5372@hotmail.com",
               "firstName": "Huanry",
@@ -1198,6 +1199,7 @@
               "role": "global:owner",
               "disabled": false,
               "mfaEnabled": false,
+              "lastActiveAt": "2025-09-14",
               "isPending": false
             }
           }
