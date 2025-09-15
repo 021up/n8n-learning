@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-15T07:11:53.326Z",
-  "updatedAt": "2025-09-15T07:11:53.326Z",
+  "updatedAt": "2025-09-15T08:59:50.625Z",
   "id": "ElLNg4BRxGLuU7N2",
   "name": "d19-loop",
   "active": false,
@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        192,
-        32
+        -176,
+        432
       ],
-      "id": "b9d83410-27d1-4582-b8a5-a315a6ff68e0",
+      "id": "65643d49-1668-4bd7-ac7b-5f0eac042167",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -43,10 +43,10 @@
       "type": "n8n-nodes-base.html",
       "typeVersion": 1.2,
       "position": [
-        640,
-        32
+        272,
+        432
       ],
-      "id": "8577c9b9-48c5-40ae-855c-715a1da1c499",
+      "id": "e0fdf2db-9a0d-4fd3-be40-bc36896c8f0e",
       "name": "HTML"
     },
     {
@@ -57,10 +57,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        416,
-        32
+        48,
+        432
       ],
-      "id": "4d29491d-914c-4a86-b27c-8b42d8f56bdc",
+      "id": "6809ff20-47f0-460e-95c6-eee9dd2ccfa9",
       "name": "HTTP Request"
     },
     {
@@ -72,10 +72,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1088,
-        32
+        720,
+        432
       ],
-      "id": "97457068-9c60-4683-be53-61b5f9745813",
+      "id": "8a0242ae-650a-4bcc-8fb5-f22c686985a9",
       "name": "Merge"
     },
     {
@@ -83,26 +83,26 @@
         "operation": "upsert",
         "base": {
           "__rl": true,
-          "value": "app0YOtocQKi2klZU",
+          "value": "app9OzbgVsNaZQ4fI",
           "mode": "list",
-          "cachedResultName": "books",
-          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU"
+          "cachedResultName": "Base",
+          "cachedResultUrl": "https://airtable.com/app9OzbgVsNaZQ4fI"
         },
         "table": {
           "__rl": true,
-          "value": "tblEs8TxpLF5aAxj2",
+          "value": "tbly1AxVFBHA7dMTG",
           "mode": "list",
-          "cachedResultName": "book-data",
-          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU/tblEs8TxpLF5aAxj2"
+          "cachedResultName": "Table",
+          "cachedResultUrl": "https://airtable.com/app9OzbgVsNaZQ4fI/tbly1AxVFBHA7dMTG"
         },
         "columns": {
-          "mappingMode": "autoMapInputData",
+          "mappingMode": "defineBelow",
           "value": {
-            "title": "={{ $json.title }}",
-            "url": "={{ $json.url }}"
+            "Title": "={{ $json.title }}",
+            "URL": "={{ $json.url }}"
           },
           "matchingColumns": [
-            "title"
+            "Title"
           ],
           "schema": [
             {
@@ -116,8 +116,8 @@
               "removed": false
             },
             {
-              "id": "title",
-              "displayName": "title",
+              "id": "Title",
+              "displayName": "Title",
               "required": false,
               "defaultMatch": false,
               "canBeUsedToMatch": true,
@@ -127,8 +127,8 @@
               "removed": false
             },
             {
-              "id": "url",
-              "displayName": "url",
+              "id": "URL",
+              "displayName": "URL",
               "required": false,
               "defaultMatch": false,
               "canBeUsedToMatch": true,
@@ -138,8 +138,8 @@
               "removed": false
             },
             {
-              "id": "Price (incl. tax)",
-              "displayName": "Price (incl. tax)",
+              "id": "Classification",
+              "displayName": "Classification",
               "required": false,
               "defaultMatch": false,
               "canBeUsedToMatch": true,
@@ -149,8 +149,8 @@
               "removed": true
             },
             {
-              "id": "Price (excl. tax)",
-              "displayName": "Price (excl. tax)",
+              "id": "Price",
+              "displayName": "Price",
               "required": false,
               "defaultMatch": false,
               "canBeUsedToMatch": true,
@@ -169,17 +169,6 @@
               "type": "string",
               "readOnly": false,
               "removed": true
-            },
-            {
-              "id": "Classification",
-              "displayName": "Classification",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -190,10 +179,10 @@
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
       "position": [
-        1312,
-        32
+        944,
+        432
       ],
-      "id": "a8d36625-b51c-40f7-9eba-a99e89a10044",
+      "id": "f1875626-5509-47ef-9a7e-c40c8c0e0a28",
       "name": "Create or update a record",
       "credentials": {
         "airtableTokenApi": {
@@ -210,10 +199,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        864,
-        -64
+        496,
+        336
       ],
-      "id": "bf5435e8-64fb-49d2-8c3e-7ff0c6a3a511",
+      "id": "2095003b-9aa3-43bf-af9d-a376dfea90b0",
       "name": "title Split Out"
     },
     {
@@ -224,67 +213,25 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        864,
-        128
+        496,
+        528
       ],
-      "id": "ccfe1167-bca2-41fe-9b82-a3da9428a2ad",
+      "id": "0d2dc7bd-071c-4243-a219-6d69e64e83d0",
       "name": "url Split Out"
     },
     {
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "qpOoI7AaV7jZpgoF",
+          "value": "ElLNg4BRxGLuU7N2",
           "mode": "list",
-          "cachedResultName": "d18-Airtable"
+          "cachedResultName": "d19-loop"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
-          "value": {
-            "aNumber": 0
-          },
+          "value": {},
           "matchingColumns": [],
-          "schema": [
-            {
-              "id": "aField",
-              "displayName": "aField",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "aNumber",
-              "displayName": "aNumber",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "number",
-              "removed": false
-            },
-            {
-              "id": "thisFieldAcceptsAnyType",
-              "displayName": "thisFieldAcceptsAnyType",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "anArray",
-              "displayName": "anArray",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "array",
-              "removed": false
-            }
-          ],
+          "schema": [],
           "attemptToConvertTypes": false,
           "convertFieldsToString": true
         },
@@ -293,10 +240,10 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1520,
-        32
+        1168,
+        432
       ],
-      "id": "06ac186e-17c7-440f-9989-6e4db7181aba",
+      "id": "981e5acf-7f82-4a29-bbbb-281bcf5237ea",
       "name": "Execute Workflow"
     },
     {
@@ -306,10 +253,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        256,
-        416
+        -176,
+        824
       ],
-      "id": "7e61a97e-52e7-42a4-becf-f1500509bcc8",
+      "id": "833f2475-51eb-4ada-8a78-a9eed9b85c35",
       "name": "When Executed by Another Workflow"
     },
     {
@@ -317,27 +264,27 @@
         "operation": "search",
         "base": {
           "__rl": true,
-          "value": "app0YOtocQKi2klZU",
+          "value": "app9OzbgVsNaZQ4fI",
           "mode": "list",
-          "cachedResultName": "books",
-          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU"
+          "cachedResultName": "Base",
+          "cachedResultUrl": "https://airtable.com/app9OzbgVsNaZQ4fI"
         },
         "table": {
           "__rl": true,
-          "value": "tblEs8TxpLF5aAxj2",
+          "value": "tbly1AxVFBHA7dMTG",
           "mode": "list",
-          "cachedResultName": "book-data",
-          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU/tblEs8TxpLF5aAxj2"
+          "cachedResultName": "Table",
+          "cachedResultUrl": "https://airtable.com/app9OzbgVsNaZQ4fI/tbly1AxVFBHA7dMTG"
         },
         "options": {}
       },
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
       "position": [
-        464,
-        416
+        48,
+        824
       ],
-      "id": "f1914b39-0591-4870-8dfb-c07aa6b84b18",
+      "id": "6a89426e-bca5-4dd6-9d06-06513c984516",
       "name": "Search records",
       "credentials": {
         "airtableTokenApi": {
@@ -345,6 +292,179 @@
           "name": "Airtable Personal Access Token account"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "Classification",
+              "cssSelector": "body > div > div > ul > li:nth-child(3) > a"
+            },
+            {
+              "key": "Price",
+              "cssSelector": "#content_inner > article > div.row > div.col-sm-6.product_main > p.price_color"
+            },
+            {
+              "key": "Availability",
+              "cssSelector": "#content_inner > article > div.row > div.col-sm-6.product_main > p.instock.availability"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        752
+      ],
+      "id": "ff4457e4-ae82-4025-a7ab-bb71a49b4142",
+      "name": "HTML1"
+    },
+    {
+      "parameters": {
+        "url": "=https://books.toscrape.com/{{ $json.URL }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        496,
+        752
+      ],
+      "id": "2fc9b837-160b-4a38-9254-5daa4797d636",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "app9OzbgVsNaZQ4fI",
+          "mode": "list",
+          "cachedResultName": "Base",
+          "cachedResultUrl": "https://airtable.com/app9OzbgVsNaZQ4fI"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbly1AxVFBHA7dMTG",
+          "mode": "list",
+          "cachedResultName": "Table",
+          "cachedResultUrl": "https://airtable.com/app9OzbgVsNaZQ4fI/tbly1AxVFBHA7dMTG"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $('Search records').item.json.Title }}",
+            "URL": "={{ $('Search records').item.json.URL }}",
+            "Classification": "={{ $json.Classification }}",
+            "Price": "={{ $json.Price }}",
+            "Availability": "={{ $json.Availability }}"
+          },
+          "matchingColumns": [
+            "Title"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Classification",
+              "displayName": "Classification",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        944,
+        824
+      ],
+      "id": "fd489780-abaa-4e49-818a-f47ebc55bab5",
+      "name": "Create or update a record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "YGwKwH0I5nUFG9SA",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        272,
+        824
+      ],
+      "id": "7653c775-cd99-4d51-b831-4679e0940bdc",
+      "name": "Loop Over Items"
     }
   ],
   "connections": {
@@ -397,6 +517,17 @@
         ]
       ]
     },
+    "Create or update a record": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "title Split Out": {
       "main": [
         [
@@ -419,22 +550,67 @@
         ]
       ]
     },
-    "Create or update a record": {
+    "When Executed by Another Workflow": {
       "main": [
         [
           {
-            "node": "Execute Workflow",
+            "node": "Search records",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "When Executed by Another Workflow": {
+    "Search records": {
       "main": [
         [
           {
-            "node": "Search records",
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML1": {
+      "main": [
+        [
+          {
+            "node": "Create or update a record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a record1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request1",
             "type": "main",
             "index": 0
           }
@@ -450,7 +626,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "ceb2d0e5-6a7c-4ab7-ba91-c9e9d4910343",
+  "versionId": "3796f35d-e475-47ee-abe5-d47f4fb653d7",
   "triggerCount": 0,
   "shared": [
     {
