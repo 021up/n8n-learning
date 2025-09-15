@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-14T06:57:55.801Z",
-  "updatedAt": "2025-09-14T07:09:13.561Z",
+  "updatedAt": "2025-09-14T07:50:14.365Z",
   "id": "qpOoI7AaV7jZpgoF",
   "name": "d18-Airtable",
   "active": false,
@@ -229,6 +229,122 @@
       ],
       "id": "f6caf112-6368-4aa3-a5b4-cb45a8ef6955",
       "name": "url Split Out"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "qpOoI7AaV7jZpgoF",
+          "mode": "list",
+          "cachedResultName": "d18-Airtable"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "aNumber": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "aField",
+              "displayName": "aField",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "aNumber",
+              "displayName": "aNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "thisFieldAcceptsAnyType",
+              "displayName": "thisFieldAcceptsAnyType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "anArray",
+              "displayName": "anArray",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "array",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1520,
+        32
+      ],
+      "id": "93f97985-40e5-4f56-bbd6-fac815791b0a",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        416
+      ],
+      "id": "aeb94d5d-4a78-47bc-a3c2-0a3fff8e3d70",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app0YOtocQKi2klZU",
+          "mode": "list",
+          "cachedResultName": "books",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblEs8TxpLF5aAxj2",
+          "mode": "list",
+          "cachedResultName": "book-data",
+          "cachedResultUrl": "https://airtable.com/app0YOtocQKi2klZU/tblEs8TxpLF5aAxj2"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        464,
+        416
+      ],
+      "id": "ca99484a-a7f0-48ce-b51e-ac8581a88ece",
+      "name": "Search records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "YGwKwH0I5nUFG9SA",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
     }
   ],
   "connections": {
@@ -302,6 +418,28 @@
           }
         ]
       ]
+    },
+    "Create or update a record": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -312,7 +450,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e5132e1d-92d4-4a9f-8f79-58e6345c73e6",
+  "versionId": "0c9b536f-daf7-46e4-9dc6-bac2be411b53",
   "triggerCount": 0,
   "shared": [
     {
