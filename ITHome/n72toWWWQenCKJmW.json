@@ -1,0 +1,191 @@
+{
+  "createdAt": "2025-09-16T11:53:46.878Z",
+  "updatedAt": "2025-09-17T17:44:15.885Z",
+  "id": "n72toWWWQenCKJmW",
+  "name": "d22-knowledge-base",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -80
+      ],
+      "id": "fd5c3a84-deef-4efe-81ec-9d93a243928a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://ithelp.ithome.com.tw/rss/series/8470",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -128,
+        -80
+      ],
+      "id": "e50d0172-902e-4f4e-91c8-8e87d3918100",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "include": "specifiedFields",
+        "fieldsToInclude": "title, link, content:encodedSnippet",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        96,
+        -80
+      ],
+      "id": "6b782cd0-4206-468f-bd62-fd0233a71d4f",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        -80
+      ],
+      "id": "3fd332bc-ec5b-4b99-9bc4-305d0a282c4c",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "ojPfHf0CmH5H9cWt",
+          "name": "huanry-Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        328,
+        144
+      ],
+      "id": "fe222cf7-9dbe-4aef-985d-794249a8535a",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2TqmUHgQDrNPzkzD",
+          "name": "Google Gemini(MIC)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        456,
+        144
+      ],
+      "id": "c7665be7-6684-45b3-b379-972a8b26c0e5",
+      "name": "Default Data Loader"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "767613f6-beba-42b3-9f21-786812bdb657",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-16T11:53:46.878Z",
+      "updatedAt": "2025-09-16T11:53:46.878Z",
+      "role": "workflow:owner",
+      "workflowId": "n72toWWWQenCKJmW",
+      "projectId": "6NV7foKyOeJG8Mz6"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-14T06:27:04.834Z",
+      "updatedAt": "2025-09-14T06:27:04.834Z",
+      "id": "S14KyMmdLj6QsyYh",
+      "name": "ithome"
+    }
+  ]
+}
