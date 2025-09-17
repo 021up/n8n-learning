@@ -1,0 +1,197 @@
+{
+  "createdAt": "2025-09-17T05:47:59.457Z",
+  "updatedAt": "2025-09-17T17:44:10.864Z",
+  "id": "WtkK75lu6sUAhthF",
+  "name": "d23-RAG",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cef15755-fe7a-4911-9454-7bc5c0732a67",
+      "name": "When chat message received",
+      "webhookId": "83239646-cf73-47d3-a34e-aa3c0e68b2da"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemPromptTemplate": "知識庫中存有 Huanry 撰寫的 n8n 學習經驗文章。\n當有人提問時，優先根據這些文章內容回答，並且可以附上相關文章連結。\n如果知識庫中 沒有相關內容，再用一般方式正常回答問題。\n若真的不知道答案，請直接回答「我不知道」，不要捏造答案。\n---------------- \nContext: {context}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.6,
+      "position": [
+        256,
+        0
+      ],
+      "id": "ead0cee4-e3fc-4ef8-82db-604b2d0d5418",
+      "name": "Question and Answer Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        224,
+        224
+      ],
+      "id": "c530149f-1fd7-4d1f-8660-7c300c685eba",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2TqmUHgQDrNPzkzD",
+          "name": "Google Gemini(MIC)"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
+      "typeVersion": 1,
+      "position": [
+        352,
+        224
+      ],
+      "id": "cc597f05-144a-4c4c-aa1f-076c78662f43",
+      "name": "Vector Store Retriever"
+    },
+    {
+      "parameters": {
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        432
+      ],
+      "id": "22c64f7e-c060-4dba-b453-b7e5a5786bed",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "ojPfHf0CmH5H9cWt",
+          "name": "huanry-Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        432,
+        640
+      ],
+      "id": "ed990dc0-5c93-43e4-aa1c-b80fa168ae9f",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8Hs106HIbMKjlTyp",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Retriever",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "21e8a3c3-4e33-46d5-b5e6-5aee64f24f54",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-17T05:47:59.457Z",
+      "updatedAt": "2025-09-17T05:47:59.457Z",
+      "role": "workflow:owner",
+      "workflowId": "WtkK75lu6sUAhthF",
+      "projectId": "6NV7foKyOeJG8Mz6"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-14T06:27:04.834Z",
+      "updatedAt": "2025-09-14T06:27:04.834Z",
+      "id": "S14KyMmdLj6QsyYh",
+      "name": "ithome"
+    }
+  ]
+}
