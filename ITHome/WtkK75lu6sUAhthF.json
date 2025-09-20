@@ -1,13 +1,15 @@
 {
   "createdAt": "2025-09-17T05:47:59.457Z",
-  "updatedAt": "2025-09-17T17:44:10.864Z",
+  "updatedAt": "2025-09-18T17:08:06.222Z",
   "id": "WtkK75lu6sUAhthF",
   "name": "d23-RAG",
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
       "parameters": {
+        "public": true,
+        "initialMessages": "嗨，我是 Huanry 的小幫手 🤖✨  \n我會根據 Huanry 的「30 天生成式 AI 工作流：社群經營者的自動化實戰」系列文章，來回答你關於 **n8n 自動化** 的各種問題！\n\n📚 [查看系列文章](https://ithelp.ithome.com.tw/users/20178495/ironman/8470)\n\n歡迎隨時問我任何相關問題，讓我們一起解鎖自動化的威力吧！🚀",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
@@ -23,7 +25,7 @@
     {
       "parameters": {
         "options": {
-          "systemPromptTemplate": "知識庫中存有 Huanry 撰寫的 n8n 學習經驗文章。\n當有人提問時，優先根據這些文章內容回答，並且可以附上相關文章連結。\n如果知識庫中 沒有相關內容，再用一般方式正常回答問題。\n若真的不知道答案，請直接回答「我不知道」，不要捏造答案。\n---------------- \nContext: {context}"
+          "systemPromptTemplate": "知識庫中存有 Huanry 撰寫的 n8n 學習經驗文章。\n當有人提問時，優先根據這些文章內容回答，並且可以回傳相關文章連結。\n如果知識庫中 沒有相關內容，再用一般方式正常回答問題。\n若真的不知道答案，請直接回答「我不知道」，不要捏造答案。\n---------------- \nContext: {context}"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
@@ -108,6 +110,19 @@
           "name": "Google Gemini(PaLM) Api account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      text: $json[\"response\"] // 取出 response 欄位\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        0
+      ],
+      "id": "54927ccc-6069-4ec0-929f-7bb79be09d13",
+      "name": "Code in JavaScript"
     }
   ],
   "connections": {
@@ -165,6 +180,17 @@
           }
         ]
       ]
+    },
+    "Question and Answer Chain": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -175,8 +201,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "21e8a3c3-4e33-46d5-b5e6-5aee64f24f54",
-  "triggerCount": 0,
+  "versionId": "5c383417-dfc3-4475-9674-c87be638b3a3",
+  "triggerCount": 1,
   "shared": [
     {
       "createdAt": "2025-09-17T05:47:59.457Z",
