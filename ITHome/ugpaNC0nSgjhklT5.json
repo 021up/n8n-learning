@@ -1,0 +1,453 @@
+{
+  "createdAt": "2025-09-23T03:58:39.755Z",
+  "updatedAt": "2025-09-23T06:51:37.382Z",
+  "id": "ugpaNC0nSgjhklT5",
+  "name": "d27-image-generate",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        160,
+        112
+      ],
+      "id": "4e3145af-4bc0-400e-afba-213eb6b506d8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM",
+          "mode": "list",
+          "cachedResultName": "文案主題規劃表",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "工作表1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "確認使用文字圖片建議",
+              "lookupValue": "o"
+            },
+            {
+              "lookupColumn": "生成圖片連結"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        384,
+        208
+      ],
+      "id": "f7f43ca9-c870-4c51-83a5-d079e9f69242",
+      "name": "Get row(s) in sheet"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.0-flash-preview-image-generation",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.0-flash-preview-image-generation"
+        },
+        "prompt": "=Generate a high-resolution image for {{ $json['輸出平台'] }}, in the style of {{ $json['圖片風格建議'] }}, visually appealing for social media, with harmonious colors, subtle lighting and shadows, clean and balanced composition, leaving some empty space, no text included, and automatically adjusted aspect ratio for the platform (e.g., Instagram 1:1, Facebook 1.91:1, Twitter 16:9).",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        832,
+        136
+      ],
+      "id": "486169d2-5b42-407d-acfe-90f00ad9ce2c",
+      "name": "Generate an image"
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Get row(s) in sheet').item.json.ID }}.png",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1rFriDskHNxBxBBUUwjm148AtPPi8mky1",
+          "mode": "list",
+          "cachedResultName": "文案主題圖片生成",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1rFriDskHNxBxBBUUwjm148AtPPi8mky1"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1056,
+        136
+      ],
+      "id": "dfca105c-dd45-4b38-a7e3-ef9a8761b60b",
+      "name": "Upload file"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        608,
+        208
+      ],
+      "id": "4aa6cd49-ac8d-434d-a45c-20e3a7cfc6be",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM",
+          "mode": "list",
+          "cachedResultName": "文案主題規劃表",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "工作表1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Loop Over Items').item.json.ID }}",
+            "生成圖片連結": "={{ $json.webViewLink }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "主題",
+              "displayName": "主題",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "關鍵字",
+              "displayName": "關鍵字",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "文案風格",
+              "displayName": "文案風格",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "目標受眾",
+              "displayName": "目標受眾",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "字數限制",
+              "displayName": "字數限制",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "輸出平台",
+              "displayName": "輸出平台",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "備註",
+              "displayName": "備註",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "生成草稿",
+              "displayName": "生成草稿",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "圖片風格建議",
+              "displayName": "圖片風格建議",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "確認使用文字圖片建議",
+              "displayName": "確認使用文字圖片建議",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "生成圖片連結",
+              "displayName": "生成圖片連結",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "確認使用圖文",
+              "displayName": "確認使用圖文",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FB 連結",
+              "displayName": "FB 連結",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1280,
+        208
+      ],
+      "id": "01946105-73b1-4c37-a789-833d539fd1e3",
+      "name": "Update row in sheet"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM",
+          "mode": "list",
+          "cachedResultName": "文案主題規劃表",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "工作表1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L2aG1su8TDETxXvqAUpgKC_n0WWpaeyRETAwJP0eOUM/edit#gid=0"
+        },
+        "event": "rowUpdate",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        160,
+        304
+      ],
+      "id": "87a2fd99-2fca-436d-ae4c-a77e33aeb25e",
+      "name": "Google Sheets Trigger"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate an image": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Generate an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "b79ea9ef-a60c-4f22-96ba-833133499551",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-23T03:58:39.755Z",
+      "updatedAt": "2025-09-23T03:58:39.755Z",
+      "role": "workflow:owner",
+      "workflowId": "ugpaNC0nSgjhklT5",
+      "projectId": "6NV7foKyOeJG8Mz6"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-14T06:27:04.834Z",
+      "updatedAt": "2025-09-14T06:27:04.834Z",
+      "id": "S14KyMmdLj6QsyYh",
+      "name": "ithome"
+    }
+  ]
+}
