@@ -1,0 +1,186 @@
+{
+  "createdAt": "2025-09-23T03:53:29.379Z",
+  "updatedAt": "2025-09-23T03:55:09.294Z",
+  "id": "7Uv92k1YfmldSKWv",
+  "name": "d27-slack-RAG",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        48
+      ],
+      "id": "5a67250d-b9bd-474d-8939-98417192c7ee",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1fkYuhIjGPl4vSyiMPDdu66opGWfySAf-d0735YOMQSE",
+          "mode": "list",
+          "cachedResultName": "心智元簡介-Slack-NotebookLM-Brian版",
+          "cachedResultUrl": "https://docs.google.com/document/d/1fkYuhIjGPl4vSyiMPDdu66opGWfySAf-d0735YOMQSE/edit?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        48,
+        48
+      ],
+      "id": "8a2f5597-23ba-48d7-8295-fa8cba1a09bc",
+      "name": "Google Drive"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        48
+      ],
+      "id": "17ba3e33-8c0e-42a3-8ada-4aae84db0f3a",
+      "name": "Supabase Vector Store"
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        464,
+        272
+      ],
+      "id": "11c6a7be-bc27-45ee-85ee-190d0335abfd",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 700,
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        576,
+        480
+      ],
+      "id": "2b225a9b-1691-4218-8123-c92c3280ffb2",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        336,
+        272
+      ],
+      "id": "f568af2a-bae0-499a-a27c-f3883b92956e",
+      "name": "Embeddings Google Gemini"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "139586a0-be3c-4884-813f-64c819fb1b19",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-09-23T03:53:29.379Z",
+      "updatedAt": "2025-09-23T03:53:29.379Z",
+      "role": "workflow:owner",
+      "workflowId": "7Uv92k1YfmldSKWv",
+      "projectId": "6NV7foKyOeJG8Mz6"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-14T06:27:04.834Z",
+      "updatedAt": "2025-09-14T06:27:04.834Z",
+      "id": "S14KyMmdLj6QsyYh",
+      "name": "ithome"
+    }
+  ]
+}
