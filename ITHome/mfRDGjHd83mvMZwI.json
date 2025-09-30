@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-25T17:56:35.562Z",
-  "updatedAt": "2025-09-30T11:47:11.620Z",
+  "updatedAt": "2025-09-30T17:41:19.568Z",
   "id": "mfRDGjHd83mvMZwI",
   "name": "ITHome比賽進程",
   "active": true,
@@ -583,28 +583,6 @@
       }
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        832,
-        352
-      ],
-      "id": "6f4f026e-125b-466a-838f-63c27d4cc9a6",
-      "name": "Merge1"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        608,
-        304
-      ],
-      "id": "2330f067-7e20-42b9-a97c-de0a35c151da",
-      "name": "No Operation, do nothing"
-    },
-    {
       "parameters": {
         "amount": 1,
         "unit": "minutes"
@@ -743,11 +721,6 @@
             "node": "Loop Over Items",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "No Operation, do nothing",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -756,7 +729,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "Call 'ITHome比賽進程'",
             "type": "main",
             "index": 0
           }
@@ -879,28 +852,6 @@
         ]
       ]
     },
-    "Merge1": {
-      "main": [
-        [
-          {
-            "node": "Call 'ITHome比賽進程'",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "No Operation, do nothing": {
-      "main": [
-        [
-          {
-            "node": "Merge1",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Wait1": {
       "main": [
         [
@@ -936,7 +887,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "4db4a2f6-5858-4fb4-b704-8e9b43d849b6",
+  "versionId": "ff8e70da-8b94-4c93-bef9-b5319ba5a12f",
   "triggerCount": 1,
   "shared": [
     {
