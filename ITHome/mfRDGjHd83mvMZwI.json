@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-25T17:56:35.562Z",
-  "updatedAt": "2025-09-30T17:41:19.568Z",
+  "updatedAt": "2025-09-30T23:41:10.447Z",
   "id": "mfRDGjHd83mvMZwI",
   "name": "ITHome比賽進程",
   "active": true,
@@ -76,6 +76,11 @@
               "returnValue": "attribute",
               "attribute": "title",
               "returnArray": true
+            },
+            {
+              "key": "days",
+              "cssSelector": "div.team-dashboard__box.d-flex.align-items-center.justify-content-between > label",
+              "returnArray": true
             }
           ]
         },
@@ -126,7 +131,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1280,
+        1328,
         624
       ],
       "id": "e9516e87-7ced-4ad1-9b78-70ccfdc126a2",
@@ -140,8 +145,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1504,
-        816
+        1312,
+        848
       ],
       "id": "faf50ff9-0447-4ce4-9013-26ffbd46b0ba",
       "name": "percentage-Split Out"
@@ -163,7 +168,7 @@
       "parameters": {
         "mode": "combine",
         "combineBy": "combineByPosition",
-        "numberInputs": 4,
+        "numberInputs": 5,
         "options": {}
       },
       "type": "n8n-nodes-base.merge",
@@ -224,7 +229,8 @@
             "url": "={{ $json.link }}",
             "title": "={{ $json.title }}",
             "percentage": "={{ $json.percentage }}",
-            "status": "={{ $json.status }}"
+            "status": "={{ $json.status }}",
+            "days": "={{ $json.days }}"
           },
           "matchingColumns": [
             "url"
@@ -267,6 +273,16 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true
+            },
+            {
+              "id": "days",
+              "displayName": "days",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
             }
           ],
           "attemptToConvertTypes": false,
@@ -608,6 +624,33 @@
       "id": "14aa51b1-7698-47e0-92d6-a7741fb88de1",
       "name": "Wait2",
       "webhookId": "154ea77f-7e59-4631-8ee8-72452e1bc527"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "days",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        1008
+      ],
+      "id": "cacfa6a6-8405-474f-8be0-a1482a861a47",
+      "name": "days Split Out"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code node (JavaScript)\n\nreturn items.map(item => {\n  const text = item.json.days;\n\n  let num = 0;\n  if (/DAY\\s*(\\d+)/i.test(text)) {\n    num = parseInt(text.replace(\"DAY\", \"\").trim(), 10);\n  }\n\n  return {\n    json: {\n      days: num\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        992
+      ],
+      "id": "a27ed2a9-de94-416c-8d50-eac1b9ec28cf",
+      "name": "Code in JavaScript day"
     }
   ],
   "connections": {
@@ -653,6 +696,11 @@
           },
           {
             "node": "percentage-Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "days Split Out",
             "type": "main",
             "index": 0
           }
@@ -873,6 +921,28 @@
           }
         ]
       ]
+    },
+    "days Split Out": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript day": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -887,7 +957,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "ff8e70da-8b94-4c93-bef9-b5319ba5a12f",
+  "versionId": "d6ac5a94-987f-4bd5-a4c2-5d4b35fa4824",
   "triggerCount": 1,
   "shared": [
     {
