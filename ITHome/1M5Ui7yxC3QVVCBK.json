@@ -1,0 +1,561 @@
+{
+  "createdAt": "2025-10-03T04:43:54.671Z",
+  "updatedAt": "2025-10-03T05:34:07.982Z",
+  "id": "1M5Ui7yxC3QVVCBK",
+  "name": "ITHome比賽進程-生成AI賽道閱讀量",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        160,
+        824
+      ],
+      "id": "adf6518b-73e7-4664-88cc-98ea408781ff",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "=https://ithelp.ithome.com.tw/2025ironman/generative-ai?page={{ $json.n }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        512
+      ],
+      "id": "d0b69192-9153-452f-afa5-192e5d3acbbc",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": "div.articles-title > a",
+              "returnArray": true
+            },
+            {
+              "key": "link",
+              "cssSelector": "div.articles-title > a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            },
+            {
+              "key": "views",
+              "cssSelector": "div.views",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1056,
+        344
+      ],
+      "id": "47bb220f-13dc-4f80-85a3-86229a82e6e6",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "link",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        432
+      ],
+      "id": "c1b337df-444b-453b-9fe9-8f84bb1acf57",
+      "name": "Link-Split Out"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "title",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        240
+      ],
+      "id": "a30c4a7a-df60-456d-ada5-3cf56cbe826e",
+      "name": "title-Split Out"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1504,
+        416
+      ],
+      "id": "58845559-74e9-4e3a-898d-04379606497a",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code Node (JavaScript)\nconst items = [];\nfor (let i = 1; i <= 396; i++) {\n  items.push({\n    json: {\n      n: i\n    }\n  });\n}\nreturn items;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        584
+      ],
+      "id": "72389ac1-396b-4267-8bf1-1ca1b33a2f70",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        608,
+        584
+      ],
+      "id": "29e2f62a-9a8f-4ea6-8c65-8a8c8f9f780a",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1uILIQME6bBW_ZLQZ6MaakiLlGS-uf1ZvRIXH56OkrKw",
+          "mode": "list",
+          "cachedResultName": "ithome",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uILIQME6bBW_ZLQZ6MaakiLlGS-uf1ZvRIXH56OkrKw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 495948027,
+          "mode": "list",
+          "cachedResultName": "生成",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uILIQME6bBW_ZLQZ6MaakiLlGS-uf1ZvRIXH56OkrKw/edit#gid=495948027"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ $json.link }}",
+            "title": "={{ $json.title }}",
+            "views": "={{ $json.views }}"
+          },
+          "matchingColumns": [
+            "url"
+          ],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "views",
+              "displayName": "views",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1728,
+        432
+      ],
+      "id": "b8f8e133-9f48-4238-89a6-719ab6459e7c",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8nSQp3v1mNHdC3P4",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1952,
+        464
+      ],
+      "id": "a4224370-ccdd-49b1-be6f-b7507cdf891f",
+      "name": "Wait",
+      "webhookId": "4d6a8724-ce5e-4ba3-bd2d-b36165a5e605"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -64,
+        584
+      ],
+      "id": "777eb827-8917-46ab-8463-a5925065d6fe",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cb9da118-6068-4cef-bf3c-15388840f784",
+              "leftValue": "={{ $now.toISODate() }}",
+              "rightValue": "2025-10-16T00:00:00",
+              "operator": {
+                "type": "dateTime",
+                "operation": "before"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        584
+      ],
+      "id": "ca6f0d3f-d860-4007-a9f8-d9a51e491e7d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "deactivate",
+        "workflowId": {
+          "__rl": true,
+          "value": "mfRDGjHd83mvMZwI",
+          "mode": "list",
+          "cachedResultName": "ITHome比賽進程 (#mfRDGjHd83mvMZwI)"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        384,
+        776
+      ],
+      "id": "d2cd0b81-fc65-47b2-8ec9-a3becc53a086",
+      "name": "Deactivate a workflow",
+      "credentials": {
+        "n8nApi": {
+          "id": "W41PrqEfM4WamItM",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1952,
+        800
+      ],
+      "id": "0478d4b9-b32e-41d8-919c-2fc1cbc5267b",
+      "name": "Wait2",
+      "webhookId": "0b5c350e-292d-43d8-99fe-a69cad7cd4fb"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "views",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        624
+      ],
+      "id": "06731db1-42bf-49b6-b5e8-a86bb91bddce",
+      "name": "views-Split Out"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "title-Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Link-Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "views-Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "title-Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Link-Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Deactivate a workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "views-Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "1193ea15-e812-4a82-ab9b-c7aebf5328d5",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-03T04:43:54.671Z",
+      "updatedAt": "2025-10-03T04:43:54.671Z",
+      "role": "workflow:owner",
+      "workflowId": "1M5Ui7yxC3QVVCBK",
+      "projectId": "6NV7foKyOeJG8Mz6"
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-09-14T06:27:04.834Z",
+      "updatedAt": "2025-09-14T06:27:04.834Z",
+      "id": "S14KyMmdLj6QsyYh",
+      "name": "ithome"
+    }
+  ]
+}
