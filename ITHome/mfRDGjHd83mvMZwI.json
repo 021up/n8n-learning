@@ -1,9 +1,9 @@
 {
   "createdAt": "2025-09-25T17:56:35.562Z",
-  "updatedAt": "2025-09-30T23:41:10.447Z",
+  "updatedAt": "2025-10-15T17:00:26.323Z",
   "id": "mfRDGjHd83mvMZwI",
   "name": "ITHome比賽進程",
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
